@@ -15,3 +15,7 @@
 Auth::routes();
 
 Route::get('', 'HomeController@index')->name('home');
+Route::get('/license', 'HomeController@license')->name('license');
+Route::post('/renew_license', 'HomeController@renewLicense')->name('renewLicense');
+Route::get('/indipay/response', 'HomeController@paymentResponse')->name('payment_response');
+Route::get('/officers', 'HomeController@officer')->name('officer');
