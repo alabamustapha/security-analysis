@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-use App\User;
+use Illuminate\Support\Facades\Schema;
+
 use Closure;
 
-class CheckAdmin
+class VerifySetup
 {
     /**
      * Handle an incoming request.
@@ -15,11 +16,14 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        
-        if(User::where('role', 'admin')->first()){
-            return $next($request);    
+        $has_table = Schema::hasTable('user_data');
+
+        if($has_table){
+            return redirect('login');        
         }
+
+        return $next($request);
+
         
-        return redirect('register')->with('message', "setup admin account");
     }
 }

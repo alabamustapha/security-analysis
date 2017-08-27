@@ -57,14 +57,12 @@ class HomeController extends Controller
         $mysqli = mysqli_connect(env("DB_HOST"), env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_DATABASE"));
         
 
-        $license_notifications_array[] = aplInstallLicense($mysqli, $request->root_url, $request->email, "");
+        $license_notifications_array = aplInstallLicense($mysqli, $request->root_url, $request->email, "");
 
-        if($license_notifications_array['notification_case']=="notification_license_ok"){
-                
+        if(isset($license_notifications_array['notification_case']) && $license_notifications_array['notification_case']=="notification_license_ok"){
             return redirect('login')->with('Message', "Installation successfull, login to continue");        
         }else{
-            dd($license_notifications_array);    
-            return back()->with('message', "Intallation failed");        
+            return back()->with('message', $license_notifications_array["notification_text"]);        
         }
         
 

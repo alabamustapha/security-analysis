@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'installed' => \App\Http\Middleware\LicenseInstalled::class,
         'admin_exist' => \App\Http\Middleware\CheckAdmin::class,
+        'admin_created' => \App\Http\Middleware\VerifyAdminCreated::class,
+        'setup' => \App\Http\Middleware\VerifySetup::class,
         
     ];
 }

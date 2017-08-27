@@ -18,11 +18,12 @@ class LicenseInstalled
     public function handle($request, Closure $next)
     {
         
-        if( Schema::hasTable("user_data") || 
-            file_exists(base_path("content/signature/license.txt"))
-            ){
-             if(DB::table('users')->count() > 0 || DB::table('user_data')->count() > 0){
+        if(Schema::hasTable("user_data")){
+            
+            if(DB::table('user_data')->count() > 0){
                  return $next($request);
+            }else{
+                Schema::drop("user_data");
             }
         } 
 

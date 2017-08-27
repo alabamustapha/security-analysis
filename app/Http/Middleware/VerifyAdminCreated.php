@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use App\User;
 use Closure;
 
-class CheckAdmin
+class VerifyAdminCreated
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,9 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        
         if(User::where('role', 'admin')->first()){
-            return $next($request);    
+            return redirect('login');
         }
-        
-        return redirect('register')->with('message', "setup admin account");
+        return $next($request);
     }
 }
