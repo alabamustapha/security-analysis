@@ -27,24 +27,14 @@
                           </tr>
                         </thead>
                         <tbody>
+                         @foreach($officers as $officer) 
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark Taloy</td>
-                            <td>officer1@gmail.com</td>
+                            <th scope="row"></th>
+                            <td>{{ $officer->name }}</td>
+                            <td>{{ $officer->email }}</td>
                             <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>John snow</td>
-                            <td>john@snow.com</td>
-                            <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry partner</td>
-                            <td>larry@gmail.com</td>
-                            <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
-                          </tr>
+                          @endforeach
                         </tbody>
                       </table>
                       
@@ -58,7 +48,7 @@
                             </div>
                             <div class="modal-body">
                               <p>List of all officers</p>
-                              <form action="{{ url('/officers') }}" method="post">
+                              <form action="{{ url('/officer') }}" method="post">
                                 
                                 {{ csrf_field() }}
 
@@ -100,11 +90,12 @@
 
                                   <div class="form-group">
                                       <label for="password-confirm" class="control-label">Confirm Password</label>
-
                                       
                                           <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                       
                                   </div>
+
+                                  <input type="hidden" name="role" value="officer">
 
                                   <div class="form-group">
                                       <div class="col-md-6 col-md-offset-4">

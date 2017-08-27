@@ -37,6 +37,11 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'company' => [
+            //\App\Http\Middleware\LicenseInstalled::class,
+            \App\Http\Middleware\VerifyLicense::class,
+        ],
+
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -57,5 +62,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'installed' => \App\Http\Middleware\LicenseInstalled::class,
+        'admin_exist' => \App\Http\Middleware\CheckAdmin::class,
+        
     ];
 }

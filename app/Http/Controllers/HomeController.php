@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\License;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
  use Softon\Indipay\Facades\Indipay;
+ use App\User;
 class HomeController extends Controller
 {
     /**
@@ -14,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('installed');
     }
 
     /**
@@ -27,51 +30,96 @@ class HomeController extends Controller
         return view('home');
     }
 
-public function license(){
+    public function install(Request $request){
 
-    // Merchant key here as provided by Payu
-    //$MERCHANT_KEY = "i4YbRJcH";
-    $MERCHANT_KEY = "rjQUPktU";
 
-    // Merchant Salt as provided by Payu
-    $SALT = "e5iIg1jwi8";
+        //Some basic variables
+        $error_detected=0;
+        $installation_completed=0;
+        $error_details="";
 
-    // End point - change to https://secure.payu.in for LIVE mode
-    $PAYU_BASE_URL = "https://test.payu.in";
 
-    $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
-    $hash = '';
+        
+        $apl_core_notifications=aplCheckSettings();
 
-$hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
+        
+        if (!empty($apl_core_notifications)){
+           abort(503);
+        }
 
-    $hashVarsSeq = explode('|', $hashSequence);
-    
-    $hash_string = '';  
-    
-    
-    $hash_string .= $MERCHANT_KEY . '|' . $txnid . '|100' . '|license renewal|' . Auth::user()->name . '|' . Auth::user()->mail . '||||||||||';
-    
+        $apl_connection_notifications=aplCheckConnection();
 
-    $hash_string .= $SALT;
+        if (!empty($apl_connection_notifications)){
+            return back()->with('message', 'Unable to connect to server');    
+        }
 
-    
 
-    $hash = strtolower(hash('sha512', $hash_string));
+        $mysqli = mysqli_connect(env("DB_HOST"), env("DB_USERNAME"), env("DB_PASSWORD"), env("DB_DATABASE"));
+        
 
-    
-    $action = $PAYU_BASE_URL . '/_payment';
-  
-    return view("license", compact(['hash', 'txnid', 'hash_string']));
+        $license_notifications_array[] = aplInstallLicense($mysqli, $request->root_url, $request->email, "");
+
+        if($license_notifications_array['notification_case']=="notification_license_ok"){
+                
+            return redirect('login')->with('Message', "Installation successfull, login to continue");        
+        }else{
+            dd($license_notifications_array);    
+            return back()->with('message', "Intallation failed");        
+        }
+        
+
+        dd($request->all());
+}
+
+    public function LicenseInstallation(Request $request){
+
+        
+       
+
+ 
+        $mysql_query="
+        CREATE TABLE `_APL_DATABASE_TABLE_` (
+            `SETTING_ID` TINYINT(1) NOT NULL AUTO_INCREMENT,
+            `ROOT_URL` VARCHAR(250) NOT NULL,
+            `CLIENT_EMAIL` VARCHAR(250) NOT NULL,
+            `LICENSE_CODE` VARCHAR(250) NOT NULL,
+            `LCD` VARCHAR(250) NOT NULL,
+            `LRD` VARCHAR(250) NOT NULL,
+            `INSTALLATION_KEY` VARCHAR(250) NOT NULL,
+            `INSTALLATION_HASH` VARCHAR(250) NOT NULL,
+            PRIMARY KEY (`SETTING_ID`)
+        ) DEFAULT CHARSET=utf8;
+
+
+        INSERT INTO `_APL_DATABASE_TABLE_` (`SETTING_ID`, `ROOT_URL`, `CLIENT_EMAIL`, `LICENSE_CODE`, `LCD`, `LRD`, `INSTALLATION_KEY`, `INSTALLATION_HASH`) VALUES ('1', '_ROOT_URL_', '_CLIENT_EMAIL_', '_LICENSE_CODE_', '_LCD_', '_LRD_', '_INSTALLATION_KEY_', '_INSTALLATION_HASH_');";
+
+        dd($mysql_query);
+        //most of variables in $mysql_good_array should come as POST parameters
+        $mysql_bad_array=array("_APL_DATABASE_TABLE_", "_ROOT_URL_", "_CLIENT_EMAIL_", "_LICENSE_CODE_", "_LCD_", "_LRD_", "_INSTALLATION_KEY_", "_INSTALLATION_HASH_");
+        $mysql_good_array=array($apl_database_table, $root_url, $client_email, $license_code, $lcd, $lrd, $installation_key, $installation_hash);
+        $mysql_query=str_replace($mysql_bad_array, $mysql_good_array, $mysql_query);
+
+        return $mysql_query;
+    }
+
+
+
+    public function license(){
+     
+
+        $license_notifications_array = aplVerifyLicense("", 1);
+        
+        $license = License::first();
+        return view("license", compact("license_notifications_array", "license"));
     }
 
     public function renewLicense(Request $request){
 
-            $parameters = $request->except('_token');
 
+      $parameters = $request->except('_token');
 
-
-      
       $order = Indipay::prepare($parameters);
+      
       return Indipay::process($order);
     }
 
@@ -80,15 +128,18 @@ $hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf
         // For default Gateway
         $response = Indipay::response($request);
         
-        // For Otherthan Default Gateway
-        $response = Indipay::gateway('NameOfGatewayUsedDuringRequest')->response($request);
 
         dd($response);
     
     }
 
     public function officer(){
+        $officers = User::where("role", "officer")->paginate(15);
+        return view("officers.index", compact("officers"));
+    } 
 
-        return view("officers.index");
-    }  
+    public function setup(){
+        $root_url = url('/');
+        return view('install', compact('root_url'));
+    } 
 }

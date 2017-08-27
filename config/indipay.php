@@ -33,8 +33,8 @@ return [
         'workingKey' => env('INDIPAY_WORKING_KEY', ''),
 
         // Should be route address for url() function
-        'successUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
-        'failureUrl' => env('INDIPAY_FAILURE_URL', 'indipay/response'),
+        'successUrl' => env('INDIPAY_SUCCESS_URL', '/indipay/response'),
+        'failureUrl' => env('INDIPAY_FAILURE_URL', '/indipay/response'),
     ],
 
     'ebs' => [                         // EBS Parameters

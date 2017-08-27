@@ -18,10 +18,10 @@
                       <h3 class="h4">License</h3>
                     </div>
                     <div class="card-body">
-                      <p>License</p>
+                      <p>{{ $license_notifications_array["notification_text"] }}</p>
                       <form>
                         <div class="form-group">
-                          <input value="12seg-axfg-skjH-GG122-GH12" class="form-control" type="email" disabled>
+                          <input value="{{ $license->INSTALLATION_KEY }}" class="form-control" type="email" disabled>
                         </div>
                         
                         <div class="form-group">       
@@ -54,19 +54,16 @@
                               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
+                              <p>Confirm email before making payment</p>
                               <form action="{{ url('/renew_license') }}" method="post" name="payuform">
                                 {{ csrf_field() }}
-                                <!-- <input type="hidden" name="key" value="i4YbRJcH" /> -->
-                                <!-- <input type="hidden" name="hash_string" value="{{ $hash_string }}" /> -->
-                                <!-- <input type="hidden" name="hash" value="{{ $hash }}" /> -->
-                                <input type="hidden" name="txnid" value="{{ $txnid }}" />
+                           
+                                
                                 <input type="hidden" name="amount"  value="1000" />
                                 
                                 <input name="productinfo" type="hidden" value="license renewal">
 
-                                <input type="hidden" name="surl"  size="64" value="{{ url('/license') }}" />
-                                <input type="hidden" name="furl"  size="64" value="{{ url('/license') }}" />
+                                
                                 <input type="hidden" name="service_provider" value="payu_paisa" />
                                 
                                 
