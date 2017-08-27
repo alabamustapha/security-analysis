@@ -28,7 +28,7 @@
 
                     
 
-                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                    <!--  <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         
                       <input id="name" type="text" class="input-material" name="name" value="{{ old('name') }}" required autofocus>
                       <label for="name" class="label-material">Name</label>
@@ -40,7 +40,7 @@
                           </span>
                       @endif
                   
-                    </div>
+                    </div> -->
                     
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                       <input id="login-username" type="email" name="email" required="" class="input-material" value="{{ old('email') }}" required autofocus>
@@ -75,7 +75,7 @@
                     </div>
 
                     
-                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <!-- <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             
                         <input id="login-password" type="password" class="input-material" name="password" required>
                         <label for="login-password" class="label-material">Password</label>
@@ -86,13 +86,13 @@
                             </span>
                         @endif
                         
-                    </div>
+                    </div> -->
                     
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         
                             <input id="password-confirm" type="password" class="input-material" name="password_confirmation" required>
                             <label for="password-confirm" class="label-material">Confirm Password</label>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary">Continue</button>
                   </form>
                 </div>
