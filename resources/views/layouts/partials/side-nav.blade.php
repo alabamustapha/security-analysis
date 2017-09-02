@@ -13,6 +13,11 @@
     <li class="active"> <a href="#"><i class="icon-home"></i>Dashboard</a></li>
     <li class="active"> <a href="{{ url("officers") }}"><i class="icon-user"></i>Officers</a></li>
     <li class="active"> <a href="#"><i class="icon-line-chart"></i>Reports</a></li>
+  </ul>
+  <span class="heading">Question Builder</span>
+  <ul class="list-unstyled">
+    <li class="active"> <a href=" {{ url('buildings') }} "><i class="icon-home"></i>Buildings</a></li>
+    <li class="active"> <a href="{{ url('categories') }}"><i class="icon-user"></i>Categories</a></li>
   </ul><span class="heading">License</span>
   <ul class="list-unstyled">
     <li class=""> <a href="{{ url('/license') }}"><i class="glyphicon glyphicon-upload"></i>Manage License</a></li>

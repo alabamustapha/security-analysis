@@ -17,4 +17,8 @@ class OfficerController extends Controller
     	return back()->with("message", "Officer added successfully");
 
     }
+
+    public function create(){
+    	return view('officers.create');
+    }
 }

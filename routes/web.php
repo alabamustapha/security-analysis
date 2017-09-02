@@ -24,8 +24,23 @@ Route::group(['middleware' => ['installed']], function(){
 });
 
 Route::group(['middleware' => ['company', 'auth']], function () {
+
+	Route::post('questions', 'QuestionController@store')->name('add_question');
+
+	Route::get('categories', 'CategoryController@index')->name('categories');
+	Route::post('categories', 'CategoryController@store')->name('add_categories');
+	Route::get('categories/create', 'CategoryController@create')->name('create_categories');
+	Route::get('buildings', 'BuildingController@index')->name('buildings');
+	Route::get('buildings/create', 'BuildingController@create')->name('create_buildings');
+	Route::post('buildings', 'BuildingController@store')->name('store_buildings');
+
+	Route::get('buildings/{building}', 'BuildingController@manage')->name('manage_building');
+	Route::get('buildings/{building}/{category}/questions', 'BuildingController@manageCategoryQuestions')->name('manage_building_category_questions');
+
+
     Route::get('/license', 'HomeController@license')->name('license');
-    Route::post('officer', "OfficerController@store")->name('store_officer');
+    Route::get('/officers/create', "OfficerController@create")->name('create_officer');
+    Route::post('/officer', "OfficerController@store")->name('store_officer');
 	Route::post('/renew_license', 'HomeController@renewLicense')->name('renewLicense');
     Route::get('', 'HomeController@index')->name('home')->middleware('company');
 	Route::get('/officers', 'HomeController@officer')->name('officer')->middleware('company');

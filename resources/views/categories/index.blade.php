@@ -8,33 +8,37 @@
                 
                 <div class="col-lg-12">
                   <div class="card">
+                    
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Officers</h3>
+                      <h3 class="h4">Categories</h3>
+
                     </div>
                     <div class="card-body">
-                      <a href="{{ url('officers/create') }}" class="btn btn-primary"> Add Officer</a>
+                      <a class="btn btn-primary" href="{{ url('categories/create') }}">Add New Category</a>
                       <hr>
-                      <table class="table">
+                      <table class="table table-bordered table-striped table-hover">
                         <thead>
                           <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>Main Category</th>
                           </tr>
                         </thead>
                         <tbody>
-                         @foreach($officers as $officer) 
+                         @foreach($categories as $category) 
                           <tr>
-                            <td>{{ $officer->name }}</td>
-                            <td>{{ $officer->email }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->main_category->name or '' }}</td>
                             <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
                           </tr>
                           @endforeach
                         </tbody>
                       </table>
-                      
-                      <!-- Modal-->
-                    
+                            
+                    </div>
+                  </div>
+                </div>
+                    </div>
                   </div>
                 </div>
                 
