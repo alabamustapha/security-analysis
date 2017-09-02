@@ -20,6 +20,6 @@ class CategoryController extends Controller
 
     public function store(Requests\StoreCategoryRequest $request){
     	$category = Category::create($request->all());
-    	return back()->with('messages', $category->name . " Created successfully");
+    	return back()->with('message', $category->name . " Created successfully");
     }
 }

@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Security Analysis') }}</title>
     <meta name="description" content="">
     <meta name="robots" content="all,follow">
 
@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
+    <!-- sweet alert-->
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
  
@@ -86,10 +88,21 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.cookie.js') }}"> </script>
     <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="{{ asset('js/charts-home.js') }}"></script>
     <script src="{{ asset('js/front.js') }}"></script>
 
+    @if (session('message'))
+        <script type="text/javascript">
+          
+          swal({
+                title: "{{ session('message') }}",
+                timer: 2000
+              });
+        </script>
+    @endif
+    
     @yield('scripts')
     
 </body>

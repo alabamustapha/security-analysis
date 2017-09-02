@@ -10,21 +10,22 @@
                   <div class="card">
                     
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Add officer account</h3>
+                      <h3 class="h4">Update {{ $officer->name }} profile</h3>
                     </div>
                     <div class="card-body">
-                      
+                    
                        <div class="row">
 
                           <div class="col-md-12">
-                                <form action="{{ url('/officer') }}" method="post">
+                                <form action="{{ route('update_officer', $officer->id) }}" method="post">
                                 
                                 {{ csrf_field() }}
+                                {{ method_field('PUT')}}
 
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="control-label">Name</label>
 
-                                      <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                      <input id="name" type="text" class="form-control" name="name" value="{{ $officer->name }}" required autofocus>
 
                                       @if ($errors->has('name'))
                                           <span class="help-block">
@@ -36,7 +37,7 @@
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="control-label">E-Mail Address</label>
-                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                        <input id="email" type="email" class="form-control" name="email" value="{{ $officer->email }}" required>
 
                                         @if ($errors->has('email'))
                                             <span class="help-block">
@@ -46,7 +47,7 @@
                                 </div>
 
                                   <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                      <label for="password" class="control-label">Password</label>
+                                      <label for="password" class="control-label">New Password</label>
 
                                           <input id="password" type="password" class="form-control" name="password" required>
 
@@ -69,7 +70,7 @@
                                   <div class="form-group">
                                       <div class="col-md-6 col-md-offset-4">
                                           <button type="submit" class="btn btn-primary">
-                                              Add officer
+                                              Update profile
                                           </button>
                                       </div>
                                   </div>

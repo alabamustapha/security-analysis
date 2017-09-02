@@ -39,8 +39,13 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
 
     Route::get('/license', 'HomeController@license')->name('license');
+    
     Route::get('/officers/create', "OfficerController@create")->name('create_officer');
+    Route::delete('/officers/{id}/delete', "OfficerController@delete")->name('delete_officer');
+    Route::get('/officers/{id}/edit', "OfficerController@edit")->name('edit_officer');
+    Route::put('/officers/{id}', "OfficerController@update")->name('update_officer');
     Route::post('/officer', "OfficerController@store")->name('store_officer');
+	
 	Route::post('/renew_license', 'HomeController@renewLicense')->name('renewLicense');
     Route::get('', 'HomeController@index')->name('home')->middleware('company');
 	Route::get('/officers', 'HomeController@officer')->name('officer')->middleware('company');

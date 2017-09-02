@@ -26,12 +26,12 @@ class StoreQuestionRequest extends FormRequest
         return [
             "body" => "required|min:5",
             "type" => "required|in:text,date,location,checkbox,rating,dropdown,radio_button",
-            "min"     => "integer",
-            "max"     => "integer",
+            "min"     => "nullable|integer",
+            "max"     => "nullable|integer",
             "options" => "",
-            "building_id" => "required|integer|min:0|exist:building,id",
-            "category_id" => "required|integer|min:0|exist:categories,id",
-            "question_id" => "integer|min:0|exist:questions,id"
+            "building_id" => "required|integer|min:0|exists:buildings,id",
+            "category_id" => "required|integer|min:0|exists:categories,id",
+            "question_id" => "integer|min:0|exists:questions,id"
         ];
     }
 }

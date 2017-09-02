@@ -21,4 +21,17 @@ class OfficerController extends Controller
     public function create(){
     	return view('officers.create');
     }
+
+    public function delete(Request $request, $id){
+    	User::find($id)->delete();
+
+    	return back()->with("message", "Record deleted");
+    }
+
+    public function edit($id){
+        $officer = User::find($id)->firstOrFail();
+    	return view('officers.edit', compact('officer'));
+    }
+
+
 }
