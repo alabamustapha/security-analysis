@@ -20,11 +20,13 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                          @foreach($officers as $officer) 
                           <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $officer->name }}</td>
                             <td>{{ $officer->email }}</td>
                             <td>

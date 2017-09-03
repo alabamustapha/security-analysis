@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
- use Softon\Indipay\Facades\Indipay;
- use App\User;
+use Softon\Indipay\Facades\Indipay;
+use App\User;
+use App\Question;
+use App\Building;
+
 class HomeController extends Controller
 {
     /**
@@ -27,7 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $officers_count     = User::whereRole('officer')->count();
+        $buildings_count    = Building::all()->count();
+        $questions_count    = Question::all()->count();
+        return view('home', compact('officers_count', 'questions_count', 'buildings_count'));
     }
 
     public function install(Request $request){
@@ -70,10 +76,6 @@ class HomeController extends Controller
 }
 
     public function LicenseInstallation(Request $request){
-
-        
-       
-
  
         $mysql_query="
         CREATE TABLE `_APL_DATABASE_TABLE_` (
@@ -87,7 +89,6 @@ class HomeController extends Controller
             `INSTALLATION_HASH` VARCHAR(250) NOT NULL,
             PRIMARY KEY (`SETTING_ID`)
         ) DEFAULT CHARSET=utf8;
-
 
         INSERT INTO `_APL_DATABASE_TABLE_` (`SETTING_ID`, `ROOT_URL`, `CLIENT_EMAIL`, `LICENSE_CODE`, `LCD`, `LRD`, `INSTALLATION_KEY`, `INSTALLATION_HASH`) VALUES ('1', '_ROOT_URL_', '_CLIENT_EMAIL_', '_LICENSE_CODE_', '_LCD_', '_LRD_', '_INSTALLATION_KEY_', '_INSTALLATION_HASH_');";
 
@@ -104,7 +105,6 @@ class HomeController extends Controller
 
     public function license(){
      
-
         $license_notifications_array = aplVerifyLicense("", 1);
         
         $license = License::first();
@@ -123,11 +123,10 @@ class HomeController extends Controller
 
     public function paymentResponse(Request $request)
     {
-        // For default Gateway
+        
         $response = Indipay::response($request);
         
-
-        dd($response);
+        return redirect('license')->with('message', $response);
     
     }
 

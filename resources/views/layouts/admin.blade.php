@@ -98,7 +98,7 @@
           
           swal({
                 title: "{{ session('message') }}",
-                timer: 2000
+                timer: 1500
               });
         </script>
     @endif

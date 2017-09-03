@@ -27,6 +27,7 @@
                         <tbody>
                          @foreach($categories as $category) 
                           <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->main_category->name or '' }}</td>
                             <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
