@@ -56,7 +56,7 @@
                                       <option value="checkbox">Check Box</option>
                                       <option value="rating">Rating</option>
                                       <option value="dropdown">Drop down</option>
-                                      <option value="radio_button">Radio Button</option>
+                                      <option value="radio">Radio Button</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -137,7 +137,7 @@
           $('#options, #option-type-date, #option-type-multiple, #add-more').hide();
           $('#options, #option-type-range').show();
           
-      }else if(type == "checkbox" || type == "radio_button" || type=="dropdown"){
+      }else if(type == "checkbox" || type == "radio" || type=="dropdown"){
           $('#options, #option-type-date, #option-type-range').hide();
           $('#options, #option-type-multiple, #add-more').show();
           
@@ -145,7 +145,9 @@
           $("button#add-more").click(function(event){
 
               event.preventDefault();
+              
               var len = $("#option-type-multiple").children().length;
+              
               $("#option-type-multiple").append(
                       '<div class="col-md-6 mt10">' +
                             '<input type="number" name="value_'  + len/2 + '" class="form-control option-value" placeholder="value">' +

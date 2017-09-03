@@ -29,7 +29,7 @@ class OfficerController extends Controller
     }
 
     public function edit($id){
-        $officer = User::find($id)->firstOrFail();
+        $officer = User::find($id);
     	return view('officers.edit', compact('officer'));
     }
 

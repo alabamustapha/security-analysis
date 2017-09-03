@@ -25,7 +25,7 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             "body" => "required|min:5",
-            "type" => "required|in:text,date,location,checkbox,rating,dropdown,radio_button",
+            "type" => "required|in:text,date,location,checkbox,rating,dropdown,radio",
             "min"     => "nullable|integer",
             "max"     => "nullable|integer",
             "options" => "",
