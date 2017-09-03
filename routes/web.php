@@ -36,6 +36,7 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
 	Route::get('buildings/{building}', 'BuildingController@manage')->name('manage_building');
 	Route::get('buildings/{building}/{category}/questions', 'BuildingController@manageCategoryQuestions')->name('manage_building_category_questions');
+	Route::get('buildings/{building}/{category}/preview', 'BuildingController@previewCategoryQuestions')->name('preview_building_category_questions');
 
 
     Route::get('/license', 'HomeController@license')->name('license');

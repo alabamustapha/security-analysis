@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
          require_once __DIR__ . "/../Helpers/License.php";
+         require_once __DIR__ . "/../Helpers/Question.php";
          require_once __DIR__ . "/../../content/apl_core_configuration.php";
          require_once __DIR__ . "/../../content/apl_core_functions.php";
          

@@ -37,5 +37,14 @@ class BuildingController extends Controller
             
             return view('buildings.categories.questions', compact('building', 'category', 'category_questions'));
 
+    } 
+
+    public function previewCategoryQuestions(Building $building, Category $category){
+
+
+            $category_questions = $building->categoryQuestions($category->id)->get();
+            
+            return view('buildings.categories.preview', compact('building', 'category', 'category_questions'));
+
     }
 }
