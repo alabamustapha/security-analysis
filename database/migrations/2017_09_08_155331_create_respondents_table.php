@@ -17,7 +17,7 @@ class CreateRespondentsTable extends Migration
         	$table->increments('id');
         	$table->string('name');
         	$table->unsignedInteger('building_id');
-        	$table->foreign('building_id')->references('id')->on('buildings');
+        	$table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
         	$table->unique(['name', 'building_id'], 'unique_respondent_for_building');
         	$table->timestamps();
         });

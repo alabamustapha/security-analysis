@@ -23,9 +23,9 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('building_id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('question_id')->nullable();
-            $table->foreign('building_id')->references('id')->on('buildings');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();
         });
     }

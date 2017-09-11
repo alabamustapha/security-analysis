@@ -22,4 +22,21 @@ class CategoryController extends Controller
     	$category = Category::create($request->all());
     	return back()->with('message', $category->name . " Created successfully");
     }
+
+    public function delete(Request $request, Category $category){
+        $category->delete();
+
+        return back()->withMessage("Category deleted");
+    }
+
+    public function edit(Category $category){
+        $categories = Category::all();
+        return view('categories.edit', compact('categories', 'category'));
+    }
+
+    public function update(Request $request, Category $category){
+        $category->update($request->all());
+
+        return back()->withMessage("Record updated");
+    }
 }

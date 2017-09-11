@@ -18,7 +18,7 @@
 
                   <div class="col-md-12">
                     <div id="report-preview">
-                        {!! $building->report->body ? makeReport($building->report->body) : '' !!}
+                        {!! isset($building->report->body) ? makeReport($building->report->body) : '' !!}
                     </div>
                   </div>
                  

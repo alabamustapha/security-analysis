@@ -29,10 +29,16 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
 	Route::get('categories', 'CategoryController@index')->name('categories');
 	Route::post('categories', 'CategoryController@store')->name('add_categories');
+	Route::put('/categories/{category}', "CategoryController@update")->name('update_category');
+	Route::get('/categories/{category}/edit', "CategoryController@edit")->name('edit_category');
+	Route::delete('/categories/{category}/delete', "CategoryController@delete")->name('delete_category');
 	Route::get('categories/create', 'CategoryController@create')->name('create_categories');
 	Route::get('buildings', 'BuildingController@index')->name('buildings');
 	Route::get('buildings/create', 'BuildingController@create')->name('create_buildings');
 	Route::post('buildings', 'BuildingController@store')->name('store_buildings');
+	Route::get('buildings/{building}/edit', "BuildingController@edit")->name('edit_building');
+	Route::delete('buildings/{building}', "BuildingController@delete")->name('delete_building');
+	Route::put('buildings/{building}', "BuildingController@update")->name('update_building');
 
 	Route::get('buildings/{building}', 'BuildingController@manage')->name('manage_building');
 	Route::get('buildings/{building}/{category}/questions', 'BuildingController@manageCategoryQuestions')->name('manage_building_category_questions');

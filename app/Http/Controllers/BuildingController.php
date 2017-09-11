@@ -25,6 +25,28 @@ class BuildingController extends Controller
     	return redirect('buildings')->with('message', $building->name . ' has been added');
     }
 
+    public function edit(Building $building){
+        return view("buildings.edit", compact('building'));
+    }
+
+    public function update(Request $request, Building $building){
+
+        $message = "No changes made";
+
+        if($building->name !== $request->name){
+            $building->update($request->all());
+            $message = "Record updated";    
+        }
+        
+        return redirect()->route('edit_building', ['building' => $building->name])->withMessage($message);
+    }
+
+    public function delete(Building $building){
+        $building->delete();
+
+        return back()->withMessage("Building records removed");
+    }
+
     public function manage(Building $building){
            
             $categories = Category::with('sub_categories')->get();

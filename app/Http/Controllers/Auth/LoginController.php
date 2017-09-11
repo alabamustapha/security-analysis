@@ -36,4 +36,10 @@ class LoginController extends Controller
     {
         $this->middleware(['guest', 'admin_exist'])->except('logout');
     }
+
+    protected function authenticated($request, $user){
+            if($user->role == 'officer'){
+                dd("You are just a bloody officer, you have no place here!");
+            }
+    }
 }

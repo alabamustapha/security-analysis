@@ -2,6 +2,7 @@
 
 use App\Question;
 
+
 function getShortCodes($report_body){
 		$patern = "/\[QUEST_(.+)\]/U";
 		$results = [];

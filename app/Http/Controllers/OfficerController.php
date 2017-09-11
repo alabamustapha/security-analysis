@@ -10,9 +10,13 @@ class OfficerController extends Controller
     
     public function store(Requests\CreateNewOfficer $request){
     	
-    	//dd($request->all());
 
-    	$user = User::create($request->all());
+    	$user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => bcrypt($request->password),
+        ]);
 
     	return back()->with("message", "Officer added successfully");
 
@@ -31,6 +35,13 @@ class OfficerController extends Controller
     public function edit($id){
         $officer = User::find($id);
     	return view('officers.edit', compact('officer'));
+    }
+
+    public function update(Requests\UpdateOfficer $request, $id){
+            $user = User::findOrFail($id);
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return back()->with("message", "Record updated");
     }
 
 

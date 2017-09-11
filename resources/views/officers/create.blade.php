@@ -17,7 +17,7 @@
                        <div class="row">
 
                           <div class="col-md-12">
-                                <form action="{{ url('/officer') }}" method="post">
+                                <form action="{{ url('/officer') }}" method="POST">
                                 
                                 {{ csrf_field() }}
 

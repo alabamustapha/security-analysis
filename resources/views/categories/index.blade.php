@@ -30,7 +30,13 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->main_category->name or '' }}</td>
-                            <td><button class="btn btn-danger">Delete</button><button class="btn btn-primary">Edit</button></td>
+                            <td><button class="btn btn-danger delete-category" id="form{{ $category->id }}">Delete</button>
+
+                            <form id="delete-category-form{{ $category->id }}" action="{{ route('delete_category', ['category' => $category->name]) }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            </form>
+                            <a class="btn btn-primary" href="{{ route('edit_category', $category->name) }}">Edit</a></td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -47,4 +53,35 @@
   </div>
   </section>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+
+          $('button.delete-category').click(function(event){
+            
+            event.preventDefault();
+
+            var form = $(this).attr('id');
+            swal({
+              title: "Are you sure?",
+              text: "Category, subcategories and all related questions will be deleted",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              closeOnConfirm: false
+            },
+            function(){
+              document.getElementById('delete-category-' + form).submit();
+            });
+      
+          });
+          
+      });
+      
+      
+    </script>
 @endsection
