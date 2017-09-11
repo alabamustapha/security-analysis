@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Building;
 use App\Category;
+use App\Question;
 class BuildingController extends Controller
 {
 
@@ -46,5 +47,14 @@ class BuildingController extends Controller
             
             return view('buildings.categories.preview', compact('building', 'category', 'category_questions'));
 
+    }
+
+    public function report(Building $building){
+        return view('buildings.report', compact('building'));
+    }
+
+    public function previewReport(Building $building){
+
+        return view('buildings.preview_report', compact('building'));
     }
 }

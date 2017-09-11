@@ -16,7 +16,7 @@
                   <form>
                   @foreach($category_questions as $question)
                       <div class="form-group">
-                          <label class="control-label">{{ $question->body }}</label>
+                          <label class="control-label">{{ $question->body . '(QUEST_' . $question->id . ')' }}</label>
                           @if($question->type == "text")
                            <textarea class="form-control"></textarea>
                           @elseif($question->type == "location")

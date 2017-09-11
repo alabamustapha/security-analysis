@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
          require_once __DIR__ . "/../Helpers/License.php";
          require_once __DIR__ . "/../Helpers/Question.php";
+         require_once __DIR__ . "/../Helpers/Report.php";
          require_once __DIR__ . "/../../content/apl_core_configuration.php";
          require_once __DIR__ . "/../../content/apl_core_functions.php";
          

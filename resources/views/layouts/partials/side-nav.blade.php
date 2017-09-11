@@ -11,8 +11,8 @@
   <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
   <ul class="list-unstyled">
     <li class="active"> <a href="{{ url('/') }}"><i class="icon-home"></i>Dashboard</a></li>
-    <li class="active"> <a href="{{ url("officers") }}"><i class="icon-user"></i>Officers</a></li>
-    <li class="active"> <a href="#"><i class="icon-line-chart"></i>Reports</a></li>
+    <li class="active"> <a href="{{ url('officers') }}"><i class="icon-user"></i>Officers</a></li>
+    <li class="active"> <a href="{{ url('reports') }}"><i class="icon-line-chart"></i>Reports</a></li>
   </ul>
   <span class="heading">Question Builder</span>
   <ul class="list-unstyled">

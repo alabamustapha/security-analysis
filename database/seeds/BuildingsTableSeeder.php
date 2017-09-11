@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 class BuildingsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +12,19 @@ class BuildingsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        DB::table('buildings')->insert([
+        	'name' => 'Schools',
+        ]); 
+
+        DB::table('buildings')->insert([
+        	'name' => 'Hospitals',
+        ]);
+        DB::table('buildings')->insert([
+        	'name' => 'Stadiums',
+        ]);
+        DB::table('buildings')->insert([
+        	'name' => 'Restaurants',
+        ]);
     }
 }

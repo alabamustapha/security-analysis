@@ -25,4 +25,17 @@ class Building extends Model
     public function categoryQuestions($category_id){
     	return $this->questions()->where('category_id', $category_id);
     }
+
+    public function report(){
+        return $this->hasOne('App\Report');
+    }
+
+    public function questionsCodes($category_id = null){
+        $codes = $this->questions()->pluck('id')->toArray();
+        foreach ($codes as  $key => $code) {
+            $codes[$key] = "QUEST_" . $code;
+        }
+
+        return $codes;
+    }
 }
