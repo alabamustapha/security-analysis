@@ -3,31 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Building;
+use App\Report;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
     public function index(){
-    	$buildings = Building::all();
+    	$buildings = Building::with('reports')->get();
     	return view('reports.index', compact('buildings'));
     }
 
-    public function store(Building $building, Request $request){
+    public function store(Request $request, Building $building, $id){
+
+                $report = $building->reports()->whereId($id)->first();
 
     			$message = "";
     			
-    			if($building->report){
-    				$building->report->body = $request->body;
-    				$building->report->save();
+    			if($report){
+                    $report->body = $request->body;
+                    $report->title = $request->title;
+    				$report->page = $request->page;
+    				$report->save();
     				$message = "report updated";
-    			}else{
-	    			$report = $building->report()->create([
-	    				'body' => $request->body,
-	    			]);
-
-	    			$message = "report saved";
     			}
 
-    			return back()->with('message', $message);
+
+                if($request->has('save_and_new')){
+
+                    $last_page = max($building->reports->pluck('page')->toArray());
+                    
+                    $report = Report::create([
+                        'building_id' => $building->id,
+                        'title' => "",
+                        'page' =>  $last_page + 1,
+                        'body' => ""
+                    ]);
+
+                    $message = "Page saved, continue editing new page";   
+                }elseif ($request->has('save_and_goto')) {
+                    $page = $request->page;
+                    if(isset($page) && !is_null($page)) {
+                       $report = $building->reports()->wherePage($page)->first();
+                    }else {
+                        $message = "Invalid page";
+                    }
+                }
+
+                 return redirect()->route('manage_building_report', [$building])
+                                ->with('report', $report)
+                                ->with('message', $message);
+    			
     }
 }

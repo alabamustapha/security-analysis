@@ -22,13 +22,23 @@ class QuestionController extends Controller
     		]);
     	}elseif($request->type == "checkbox" || $request->type == "radio" || $request->type == "dropdown"){
     		$options = "";
-    		foreach ($request->all() as $key => $value) {
-    		 	if(starts_with($key, 'value')){
-    		 		$options .= $value . "|";
-    		 	}elseif(starts_with($key, 'label')){
-    		 		$options .= $value . "\n";
-    		 	}
-    		 }
+    		//for custom label and option
+            // foreach ($request->all() as $key => $value) {
+    		//  	if(starts_with($key, 'value')){
+    		//  		$options .= $value . "|";
+    		//  	}elseif(starts_with($key, 'label')){
+    		//  		$options .= $value . "\n";
+    		//  	}
+    		//  }
+            
+            foreach ($request->all() as $key => $value) {
+
+                if(trim($value) !== "" && starts_with($key, 'option')){
+                     $options .= $value . "\n";
+                }
+                
+             }
+
 
     		$question = Question::create([
     			'body' => $request->body,

@@ -28,7 +28,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $building->name }}</td>
                             <td>
-                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->name . '/report') }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->name . '/report' ) }}">Edit</a>
                                 <a class="btn btn-primary" href="{{ url('buildings/' . $building->name . '/report_preview') }}">Preview</a>
                             </td>
                           </tr>

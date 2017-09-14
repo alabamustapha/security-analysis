@@ -15,9 +15,12 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function(Blueprint $table){
             $table->increments('id');
-            $table->unsignedInteger('building_id')->unique();
+            $table->unsignedInteger('building_id');
+            $table->unsignedInteger('page');
             $table->longText('body');
+            $table->string('title')->nullable();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->unique(["building_id", "page"], "unique_building_report_page");
             $table->timestamps();
         });
     }

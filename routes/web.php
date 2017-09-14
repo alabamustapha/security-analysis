@@ -60,6 +60,6 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 	Route::get('reports', 'ReportController@index')->name('reports');
 	Route::get('buildings/{building}/report', 'BuildingController@report')->name('manage_building_report');
 	Route::get('buildings/{building}/report_preview', 'BuildingController@previewReport')->name('preview_building_report');
-	Route::post('buildings/{building}/report', 'ReportController@store')->name('create_building_report');
+	Route::post('buildings/{building}/reports/{id}', 'ReportController@store')->name('create_building_report');
 });
 

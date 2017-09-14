@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Building;
 use App\Category;
 use App\Question;
+use App\Report;
 class BuildingController extends Controller
 {
 
@@ -71,8 +72,26 @@ class BuildingController extends Controller
 
     }
 
-    public function report(Building $building){
-        return view('buildings.report', compact('building'));
+    public function report(Building $building, Request $request){
+        
+        if($building->reports->count() > 0){
+            if($request->has('page')){
+                $report = $building->reports()->where('page', $request->page)->first();
+            }else {
+                $report = $building->reports()->first();
+            }
+        }else{
+
+            $report = Report::create([
+                   'building_id' => $building->id, 
+                   'page' => 1,
+                   'title' => "",
+                   'body' => ""
+            ]);
+        }
+        
+
+        return view('buildings.report', compact('building', 'report'));
     }
 
     public function previewReport(Building $building){

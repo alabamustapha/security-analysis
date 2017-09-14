@@ -27,24 +27,22 @@
                            <select class="form-control">
                               <option></option>
                               @foreach(prepareQuestionOptions($question->options) as $option)
-                                @if(str_contains($option, '|'))
-                                  <option value="{{ getQuestionOptionValue($option) }}">{{ getQuestionOptionLabel($option) }}</option>
-                                @endif
+                                
+                                  <option value="{{ $option }}">{{ $option }}</option>
                               @endforeach
                            </select>
                            @elseif($question->type == "radio")
                            <br>
                               @foreach(prepareQuestionOptions($question->options) as $option)
-                                @if(str_contains($option, '|'))
-                                  <input type="radio" name="radio{{$question->id}}" value="{{ getQuestionOptionValue($option) }}">&nbsp;{{ getQuestionOptionLabel($option) }}
-                                @endif
+                                
+                                  <input type="radio" name="radio{{$question->id}}" value="{{ $option }}">&nbsp;{{ $option }}
                               @endforeach
                           @elseif($question->type == "checkbox")
                            <br>
                               @foreach(prepareQuestionOptions($question->options) as $option)
-                                @if(str_contains($option, '|'))
-                                  <input type="checkbox" name="checkbox{{$question->id}}" value="{{ getQuestionOptionValue($option) }}">&nbsp;{{ getQuestionOptionLabel($option) }}
-                                @endif
+                                
+                                  <input type="checkbox" name="checkbox{{$question->id}}" value="{{ $option }}">&nbsp;{{ $option }}
+                                
                               @endforeach
                           @endif
                         </div>

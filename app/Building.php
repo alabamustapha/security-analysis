@@ -26,8 +26,8 @@ class Building extends Model
     	return $this->questions()->where('category_id', $category_id);
     }
 
-    public function report(){
-        return $this->hasOne('App\Report');
+    public function reports(){
+        return $this->hasMany('App\Report');
     }
 
     public function questionsCodes($category_id = null){

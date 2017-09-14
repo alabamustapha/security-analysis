@@ -14,17 +14,38 @@
           <div class="card">
             
             <div class="card-header d-flex align-items-center">
-              <h3 class="h4">Manage {{ $building->name }} Report</h3>
+              <h3 class="h4">Manage {{ $building->name }} Report - Page {{ $report->page }}</h3>
             </div>
             <div class="card-body">
               
                <div class="row">
 
                   <div class="col-md-12">
-                    <form action="{{ route('create_building_report', ["building" => $building->name]) }}" method="post">
+                    <form action="{{ route('create_building_report', ["building" => $building->name, "id" => $report->id]) }}" method="post">
                     {{ csrf_field() }}
+                      <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="page" class="label-contol">Page Number</label>
+                              <input class="form-control" type="number" id="page" name="page" value="{{ $report->page }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                              <label for="goto-page" class="label-contol"> Goto</label>
+                              <select name="goto_page" id="goto-page" class="form-control">
+                                  <option></option>
+                                  @foreach($building->reports as $building_report)
+                                    <option value="{{ $building_report->page }}">{{ "Page " . $building_report->page }}</option>
+                                  @endforeach
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="page-title" class="label-contol">Page title</label>
+                        <input class="form-control" type="text" id="page-title" name="title" value="{{ $report->title or "" }}">
+                      </div>
                       <div class="form-group">
-                        <textarea name="body" id="report-editor" required autofocus>{{ $building->report->body or ''}}</textarea>
+                        <textarea name="body" id="report-editor" autofocus>{{ $report->body }}</textarea>
                             @if ($errors->has('body'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
@@ -32,11 +53,12 @@
                             @endif
                       </div>
 
+
                         <div class="form-group">
                             
-                            <button type="submit" class="btn btn-primary">
-                                Save
-                            </button>
+                            <input type="submit" class="btn btn-primary" name="save" value="Save">
+                            <input type="submit" class="btn btn-primary" name="save_and_new" value="Save and New Page">
+                            <input type="submit" class="btn btn-primary" name="save_and_goto" value="Save and Goto Page">
                         </div>
                                 
                       </form>

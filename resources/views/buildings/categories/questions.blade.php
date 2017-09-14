@@ -86,12 +86,12 @@
                                 </div>
 
                                 <div class="row mt10" id="option-type-multiple">
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                       <input type="number" name="value" class="form-control option-value" placeholder="value">
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-md-6">
-                                        <input type="text" name="label" class="form-control option-label" placeholder="label">
+                                    <div class="col-md-12 mt10">
+                                        <input type="text" name="option" class="form-control option-label" placeholder="option">
                                     </div>
                                 </div>
                                   
@@ -149,11 +149,8 @@
               var len = $("#option-type-multiple").children().length;
               
               $("#option-type-multiple").append(
-                      '<div class="col-md-6 mt10">' +
-                            '<input type="number" name="value_'  + len/2 + '" class="form-control option-value" placeholder="value">' +
-                        '</div>' +
-                        '<div class="col-md-6 mt10">' +
-                              '<input type="text" name="label_'  + len/2 + '"  class="form-control option-label" placeholder="label">' +
+                        '<div class="col-md-12 mt10">' +
+                              '<input type="text" name="option_'  + len/2 + '"  class="form-control option-label" placeholder="option">' +
                           '</div>'
 
               )
