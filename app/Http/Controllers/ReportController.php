@@ -36,18 +36,20 @@ class ReportController extends Controller
                         'building_id' => $building->id,
                         'title' => "",
                         'page' =>  $last_page + 1,
-                        'body' => ""
+                        'body' => "Page " . ($last_page + 1)
                     ]);
 
                     $message = "Page saved, continue editing new page";   
                 }elseif ($request->has('save_and_goto')) {
-                    $page = $request->page;
+
+                    $page = $request->goto_page;
                     if(isset($page) && !is_null($page)) {
                        $report = $building->reports()->wherePage($page)->first();
                     }else {
                         $message = "Invalid page";
                     }
                 }
+
 
                  return redirect()->route('manage_building_report', [$building])
                                 ->with('report', $report)

@@ -14,7 +14,9 @@
           <div class="card">
             
             <div class="card-header d-flex align-items-center">
+              <button class="btn btn-danger pull-right"><i class="fa fa-trash"></i></button>&nbsp;
               <h3 class="h4">Manage {{ $building->name }} Report - Page {{ $report->page }}</h3>
+
             </div>
             <div class="card-body">
               

@@ -74,7 +74,9 @@ class BuildingController extends Controller
 
     public function report(Building $building, Request $request){
         
-        if($building->reports->count() > 0){
+        if(session('report')){
+            $report = session('report');
+        }elseif($building->reports->count() > 0){
             if($request->has('page')){
                 $report = $building->reports()->where('page', $request->page)->first();
             }else {
