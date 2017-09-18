@@ -16,7 +16,7 @@ class QuestionController extends Controller
     		$question = Question::create([
     			'body' => $request->body,
     			'type' => $request->type,
-    			'options' => $request->from_date . '|' . $request->to_date,
+    			'options' => [$request->from_date, $request->to_date],
     			'building_id' => $request->building_id,
     			'category_id' => $request->category_id,
     		]);
@@ -36,9 +36,11 @@ class QuestionController extends Controller
                 if(trim($value) !== "" && starts_with($key, 'option')){
                      $options .= $value . "\n";
                 }
-                
+            
              }
 
+             $options = explode(PHP_EOL, $options);
+             array_pop($options);
 
     		$question = Question::create([
     			'body' => $request->body,

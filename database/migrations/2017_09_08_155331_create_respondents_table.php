@@ -19,6 +19,8 @@ class CreateRespondentsTable extends Migration
         	$table->unsignedInteger('building_id');
         	$table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
         	$table->unique(['name', 'building_id'], 'unique_respondent_for_building');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete("set null");
         	$table->timestamps();
         });
     }

@@ -13,6 +13,10 @@ class Question extends Model
     protected $hidden = ['created_at', 'updated_at', "building_id", "category_id",
         "question_id"];
 
+     protected $casts = [
+        'options' => 'array',
+    ];    
+
     public function responses(){
     	return $this->hasMany('App\Response');
     }
@@ -23,5 +27,10 @@ class Question extends Model
 
     public function category(){
     	return $this->belongsTo('App\Category');
+    }
+
+    public function setOptionsAttribute($value)
+    {
+        $this->attributes['options'] = json_encode($value);
     }
 }

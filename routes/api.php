@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/buildings', "BuildingController@apiAll");
 
 Route::middleware('auth:api')->get('/buildings/{building}/questions', "BuildingController@apiAllQuestions");
 
+Route::middleware('auth:api')->post('/respondent', 'RespondentController@apiCreate');
+
 Route::middleware('auth:api')->get('/buildings/{building}/questions/{id}', function (Request $request) {
     return $request->user();
 });
