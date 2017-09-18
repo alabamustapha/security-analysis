@@ -100,4 +100,20 @@ class BuildingController extends Controller
 
         return view('buildings.preview_report', compact('building'));
     }
+
+    public function apiAll(Request $request){
+        $results = [];
+        if($request->has('id')){
+            $results = Building::whereId($request->id)->firstOrFail()->toArray();
+        }else{
+            $results = Building::all()->toArray();       
+        }
+        
+        return $results;
+    }
+
+    public function apiAllQuestions(Request $request, Building $building){
+
+            return $building->questions()->with('building', 'category')->get();
+    }
 }

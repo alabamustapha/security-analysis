@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->get('/buildings', "BuildingController@apiAll");
+
+Route::middleware('auth:api')->get('/buildings/{building}/questions', "BuildingController@apiAllQuestions");
+
+Route::middleware('auth:api')->get('/buildings/{building}/questions/{id}', function (Request $request) {
+    return $request->user();
+});
