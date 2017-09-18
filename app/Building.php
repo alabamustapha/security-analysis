@@ -27,7 +27,7 @@ class Building extends Model
     }
 
     public function reports(){
-        return $this->hasMany('App\Report');
+        return $this->hasMany('App\Report')->orderBy("page");
     }
 
     public function questionsCodes($category_id = null){

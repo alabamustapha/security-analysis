@@ -18,7 +18,9 @@
 
                   <div class="col-md-12">
                     <div id="report-preview">
-                        {!! isset($building->report->body) ? makeReport($building->report->body) : '' !!}
+                      @foreach($building->reports as $report)
+                        {!! makeReport($report->body) !!}
+                      @endforeach  
                     </div>
                   </div>
                  
