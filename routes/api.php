@@ -21,7 +21,16 @@ Route::middleware('auth:api')->get('/buildings', "BuildingController@apiAll");
 
 Route::middleware('auth:api')->get('/buildings/{building}/questions', "BuildingController@apiAllQuestions");
 
-Route::middleware('auth:api')->post('/respondent', 'RespondentController@apiCreate');
+Route::middleware('auth:api')->post('/respondents', 'RespondentController@apiCreate');
+Route::middleware('auth:api')->get('/respondents/{$id}', 'RespondentController@apiShow');
+
+Route::middleware('auth:api')->post('/responses', 'ResponseController@apiSaveReponses');
+
+Route::middleware('auth:api')->post('/responses/{id}/images', 'ResponseController@apiUpdateResponseImages');
+
+Route::middleware('auth:api')->post('/responses/{id}/videos', 'ResponseController@apiUpdateResponseVideos');
+
+Route::middleware('auth:api')->post('/responses/{id}/sugestions', 'ResponseController@apiUpdateResponseSuggestion');
 
 Route::middleware('auth:api')->get('/buildings/{building}/questions/{id}', function (Request $request) {
     return $request->user();

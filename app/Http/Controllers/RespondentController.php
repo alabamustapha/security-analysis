@@ -16,4 +16,8 @@ class RespondentController extends Controller
     	]);
     	return $respondent;
     }
+
+    public function apiShow(Respondent $respondent){
+    	return $respondent;
+    }
 }

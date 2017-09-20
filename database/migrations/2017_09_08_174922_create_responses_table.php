@@ -27,6 +27,7 @@ class CreateResponsesTable extends Migration
             $table->foreign('building_id')->references('id')->on('buildings');
             $table->foreign('question_id')->references('id')->on('questions');
             $table->foreign('respondent_id')->references('id')->on('respondents');
+            $table->timestamps();
         });
     }
 
