@@ -26,20 +26,20 @@
                            @elseif($question->type == "dropdown")
                            <select class="form-control">
                               <option></option>
-                              @foreach(prepareQuestionOptions($question->options) as $option)
+                              @foreach($question->options as $option)
                                 
                                   <option value="{{ $option }}">{{ $option }}</option>
                               @endforeach
                            </select>
                            @elseif($question->type == "radio")
                            <br>
-                              @foreach(prepareQuestionOptions($question->options) as $option)
+                              @foreach($question->options as $option)
                                 
                                   <input type="radio" name="radio{{$question->id}}" value="{{ $option }}">&nbsp;{{ $option }}
                               @endforeach
                           @elseif($question->type == "checkbox")
                            <br>
-                              @foreach(prepareQuestionOptions($question->options) as $option)
+                              @foreach($question->options as $option)
                                 
                                   <input type="checkbox" name="checkbox{{$question->id}}" value="{{ $option }}">&nbsp;{{ $option }}
                                 

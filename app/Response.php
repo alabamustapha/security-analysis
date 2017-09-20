@@ -13,4 +13,10 @@ class Response extends Model
     protected $fillable = ["body", "suggestions", "images", "audios", "videos", "value", "building_id", "respondent_id", "question_id"];
 
     protected $hidden = ['created_at', 'updated_at', "building_id", 'respondent_id', 'question_id'];
+
+    protected $casts = [
+        'images' => 'array',
+        'audios' => 'array',
+        'videos' => 'array'
+    ];    
 }

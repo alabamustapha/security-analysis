@@ -53,9 +53,9 @@ class ResponseController extends Controller
     					"body" 		 	=> $body,
     					"suggestions" 	=> $suggestion,
     					"value"		 	=> $value,
-    					"images"     	=> json_encode($images),
-    					"videos"     	=> json_encode($videos),
-    					"audios"     	=> json_encode($audios),
+    					"images"     	=> array_unique(array_merge($images, $response->images)),
+    					"videos"     	=> array_unique(array_merge($videos, $response->videos)),
+    					"audios"     	=> array_unique(array_merge($audios, $response->audios)),
     					"question_id"	=> $question_id,
     					"respondent_id"	=> $respondent_id,
     					"building_id"	=> $request->building_id,
@@ -65,9 +65,9 @@ class ResponseController extends Controller
     					"body" 		 	=> $body,
     					"suggestions" 	=> $suggestion,
     					"value"		 	=> $value,
-    					"images"     	=> json_encode($images),
-    					"videos"     	=> json_encode($videos),
-    					"audios"     	=> json_encode($audios),
+    					"images"     	=> $images,
+    					"videos"     	=> $videos,
+    					"audios"     	=> $audios,
     					"question_id"	=> $question_id,
     					"respondent_id"	=> $respondent_id,
     					"building_id"	=> $request->building_id,
@@ -75,18 +75,35 @@ class ResponseController extends Controller
     				}
 
     				
-    				$data[] = [$body, $suggestion, $value, json_encode($images), json_encode($audios), json_encode($videos), $question_id, $respondent_id];	
+    				$data[] = $response;	
     			}
     			
     		}
 
-
-
     		return $data;
+    }
 
-    		// foreach ($request->all() as $key => $value) {
-    		// 	$images[] = $key;
-    		// }
-    		// return $images;
+    public function apiUpdateResponseImages(Request $request){
+    	return $request->all();
+    	$response = Response::find($id)->first();
+    	$images = [];
+
+    	if($response){
+
+    		if($request->hasFile("images")){
+    			return "has";
+				foreach($request->file("images") as $image) {
+					$images = array_prepend($images, $image->storeAs('images', $image->getClientOriginalName()));
+				}
+
+				$response->images = 
+					array_unique(array_merge($images, $response->images));
+
+				$response->save();
+			}
+
+    	}
+
+    	return $response;
     }
 }
