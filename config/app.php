@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Softon\Indipay\IndipayServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -229,7 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Indipay' => Softon\Indipay\Facades\Indipay::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

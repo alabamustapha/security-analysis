@@ -7,6 +7,7 @@ use App\Building;
 use App\Category;
 use App\Question;
 use App\Report;
+use PDF;
 class BuildingController extends Controller
 {
 
@@ -99,6 +100,18 @@ class BuildingController extends Controller
     public function previewReport(Building $building){
 
         return view('buildings.preview_report', compact('building'));
+    }
+
+    public function downloadReport(Building $building){
+
+        $content = "";
+        foreach($building->reports as $report){ 
+            $content .= makeReport($report->body); 
+        }
+
+        $pdf = PDF::loadHTML($content)->save(storage_path("app/reports/" . $building->name . ".pdf"));
+
+        return response()->file(storage_path("app/reports/" . $building->name . ".pdf"));
     }
 
     public function apiAll(Request $request){

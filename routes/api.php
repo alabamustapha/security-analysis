@@ -35,3 +35,5 @@ Route::middleware('auth:api')->post('/responses/{id}/sugestions', 'ResponseContr
 Route::middleware('auth:api')->get('/buildings/{building}/questions/{id}', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->get('buildings/{building}/report_download', 'BuildingController@downloadReport')->name('download_building_report');
