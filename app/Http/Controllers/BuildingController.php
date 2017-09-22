@@ -109,9 +109,9 @@ class BuildingController extends Controller
             $content .= makeReport($report->body); 
         }
 
-        $pdf = PDF::loadHTML($content)->save(storage_path("app/reports/" . $building->name . ".pdf"));
+        $pdf = PDF::loadHTML($content)->save(storage_path("app/public/reports/" . $building->name . ".pdf"));
 
-        return response()->file(storage_path("app/reports/" . $building->name . ".pdf"));
+        return response()->file(storage_path("app/public/reports/" . $building->name . ".pdf"));
     }
 
     public function apiAll(Request $request){
