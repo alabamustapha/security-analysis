@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
+    <!-- sweet alert-->
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
  
@@ -40,9 +42,21 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.cookie.js') }}"> </script>
     <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="{{ asset('js/charts-home.js') }}"></script>
     <script src="{{ asset('js/front.js') }}"></script>
+    @if (isset($message))
+        <script type="text/javascript">
+          
+          swal({
+                title: "{{ $message }}",
+                timer: 1500
+              });
+        </script>
+    @endif
+    
+    @yield('scripts')
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!---->
     <!-- <script>

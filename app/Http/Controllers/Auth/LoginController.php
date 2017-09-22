@@ -39,7 +39,9 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user){
             if($user->role == 'officer'){
-                dd("You are just a bloody officer, you have no place here!");
+                auth()->logout();
+                $message = "Officers' accounts not allowed";
+                return view('auth.login')->with('message', $message);
             }
     }
 }
