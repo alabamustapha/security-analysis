@@ -126,6 +126,6 @@ class BuildingController extends Controller
     }
 
     public function apiAllQuestions(Request $request, Building $building){
-            return $building->questions()->with('building', 'category')->get();
+            return $building->questions()->with('building', 'category.main_category', 'category.sub_categories', 'category')->get();
     }
 }
