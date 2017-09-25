@@ -52,7 +52,7 @@ class RespondentController extends Controller
     }
 
     public function completedStatus(Building $building, Respondent $respondent){
-        return $respondent->is_complete;
+        return response()->json(["is_complete" => (int)$respondent->is_complete]);
     }
 
     public function completed(Request $request, Building $building, Respondent $respondent){
