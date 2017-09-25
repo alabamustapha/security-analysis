@@ -50,4 +50,15 @@ class RespondentController extends Controller
         return $pdf->download($building->name . "_" . $respondent->name  . ".pdf");
 
     }
+
+    public function completedStatus(Building $building, Respondent $respondent){
+        return $respondent->is_complete;
+    }
+
+    public function completed(Request $request, Building $building, Respondent $respondent){
+        $respondent->is_complete = (boolean)$request->is_complete;
+        $respondent->save();
+
+        return $respondent;
+    }
 }
