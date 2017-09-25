@@ -10,7 +10,7 @@ function getShortCodes($report_body){
         return $results;
 }
 
-function shortCodesAndReplacement($report_body){
+function shortCodesAndReplacement($report_body, $respondent_id){
 	
 	$short_codes = getShortCodes($report_body);
         $data = [];
@@ -19,7 +19,7 @@ function shortCodesAndReplacement($report_body){
             $question = Question::with('responses')->find($id);
             $code['short_code'] = "[QUEST_" . $id . ']';
             $code['question']   =  $question->body;
-            $code['responses']  =  combineResponses($question->responses);
+            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id));
             $data[] = $code;
         }
 
@@ -40,8 +40,9 @@ function combineResponses($responses){
 	return $combined_responses;
 }
 
-function makeReport($report){
-	$short_codes_replacement = shortCodesAndReplacement($report);
+function makeReport($report, $respondent_id){
+
+	$short_codes_replacement = shortCodesAndReplacement($report, $respondent_id);
 	foreach ($short_codes_replacement as $codes) {
 		$report = str_replace($codes['short_code'], $codes['question'] . '<br>' . $codes['responses'], $report);
 	}

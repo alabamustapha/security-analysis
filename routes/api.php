@@ -32,8 +32,10 @@ Route::middleware('auth:api')->post('/responses/{id}/videos', 'ResponseControlle
 
 Route::middleware('auth:api')->post('/responses/{id}/sugestions', 'ResponseController@apiUpdateResponseSuggestion');
 
-Route::middleware('auth:api')->get('/buildings/{building}/questions/{id}', function (Request $request) {
+Route::middleware('auth:api')->get('/buildings/{id}/questions/{question_id}', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->get('/buildings/{building}/respondents/{respondent}/download_report', "RespondentController@apiDownloadBuildingReport")->name('download_respondent_building_report');
 
 Route::middleware('auth:api')->get('buildings/{building}/report_download', 'BuildingController@downloadReport')->name('download_building_report');

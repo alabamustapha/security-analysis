@@ -28,9 +28,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $building->name }}</td>
                             <td>
-                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->name . '/report' ) }}">Edit</a>
-                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->name . '/report_preview') }}">Preview</a>
-                                <a class="btn btn-success" href="{{ url('buildings/' . $building->name . '/report_download') }}">Download</a>
+                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->id . '/report' ) }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->id . '/report_preview') }}">Preview</a>
+                                <a class="btn btn-success" href="{{ url('buildings/' . $building->id . '/report_download') }}">Download</a>
                             </td>
                           </tr>
                           @endforeach

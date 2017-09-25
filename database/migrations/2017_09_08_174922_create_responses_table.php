@@ -24,9 +24,9 @@ class CreateResponsesTable extends Migration
             $table->unsignedInteger('building_id');
             $table->unsignedInteger('respondent_id');
             $table->unsignedInteger('question_id');
-            $table->foreign('building_id')->references('id')->on('buildings');
-            $table->foreign('question_id')->references('id')->on('questions');
-            $table->foreign('respondent_id')->references('id')->on('respondents');
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete("cascade");
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete("cascade");
+            $table->foreign('respondent_id')->references('id')->on('respondents')->onDelete("cascade");
             $table->timestamps();
         });
     }

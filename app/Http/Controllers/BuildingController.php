@@ -44,6 +44,7 @@ class BuildingController extends Controller
     }
 
     public function delete(Building $building){
+
         $building->delete();
 
         return back()->withMessage("Building records removed");

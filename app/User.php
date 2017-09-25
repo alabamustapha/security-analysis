@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Building;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,4 +28,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function respondents(){
+        return $this->hasMany("App\Respondent");
+    }
+
+    public function buildingRespondents($building_id){
+        return $this->hasMany("App\Respondent")->where('building_id', $building_id)->get();
+    }
+
+    public function inspectedBuildings(){
+        return Building::whereId($this->respondents->pluck('building_id')->toArray())->get();
+    }
+
 }

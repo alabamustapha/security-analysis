@@ -30,12 +30,12 @@
                             <td>{{ $building->name }}</td>
                             <td><button class="btn btn-danger delete-building" id="form{{ $building->id }}">Delete</button>
 
-                            <form id="delete-building-form{{ $building->id }}" action="{{ route('delete_building', ['building' => $building->name]) }}" method="POST" style="display: none;">
+                            <form id="delete-building-form{{ $building->id }}" action="{{ route('delete_building', ['building' => $building->id]) }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             </form>
-                                 <a class="btn btn-primary" href="{{ route('edit_building', ['building' => $building->name]) }}">Edit</a>
-                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->name) }}">Manage Questions</a>
+                                 <a class="btn btn-primary" href="{{ route('edit_building', ['building' => $building->id]) }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ url('buildings/' . $building->id) }}">Manage Questions</a>
                             </td>
                           </tr>
                           @endforeach

@@ -23,9 +23,4 @@ class Category extends Model
     	return $this->belongsTo('App\Category', 'category_id', 'id');
     }
 
-
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
 }

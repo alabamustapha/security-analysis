@@ -18,5 +18,9 @@ class Response extends Model
         'images' => 'array',
         'audios' => 'array',
         'videos' => 'array'
-    ];    
+    ];
+
+    public function question(){
+    	return $this->belongsTo('App\Question');
+    }    
 }

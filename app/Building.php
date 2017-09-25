@@ -11,11 +11,6 @@ class Building extends Model
 
     public $timestamps = false;
 
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
-
     public function questions(){
 
     	return $this->hasMany('App\Question');

@@ -9,35 +9,26 @@
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Officers</h3>
+                      <h3 class="h4">{{ $building->name }} - {{ $officer->name }} </h3>
                     </div>
                     <div class="card-body">
-                      <a href="{{ url('officers/create') }}" class="btn btn-primary"> Add Officer</a>
-                      <hr>
                       <table class="table">
                         <thead>
                           <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                         @foreach($officers as $officer) 
+                         @foreach($building_respondents as $respondent) 
                           <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $officer->name }}</td>
-                            <td>{{ $officer->email }}</td>
+                            <td>{{ $respondent->name }}</td>
                             <td>
-                            <button class="btn btn-danger delete-officer" id="form{{ $officer->id }}">Delete</button>
-
-                            <form id="delete-officer-form{{ $officer->id }}" action="{{ route('delete_officer', ['id' => $officer->id]) }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                            </form>
-                            <a class="btn btn-primary" href="{{ route('edit_officer', $officer->id) }}">Edit</a>
-                            <a class="btn btn-primary" href="{{ route('officer_inspected_buildings', $officer->id) }}">Inspected buildings</a>
+                            <a class="btn btn-primary" href="{{ route('respondent_building_responses', ['officer' => $officer->id, 'building' => $building->id, 'respondent' => $respondent->id]) }}">View responses</a>
+                            <a class="btn btn-primary" href="{{ route('respondent_building_report', ['officer' => $officer->id, 'building' => $building->id, 'respondent' => $respondent->id]) }}">Preview report</a>
+                            <a class="btn btn-success" href="{{ route('download_respondent_building_report', ['building' => $building->id, 'respondent' => $respondent->id]) }}">Download report</a>
                             </td>
                           </tr>
                           @endforeach

@@ -23,7 +23,7 @@
                <div class="row">
 
                   <div class="col-md-12">
-                    <form action="{{ route('create_building_report', ["building" => $building->name, "id" => $report->id]) }}" method="post">
+                    <form action="{{ route('create_building_report', ["building" => $building->id, "id" => $report->id]) }}" method="post">
                     {{ csrf_field() }}
                       <div class="row">
                         <div class="col-md-6">

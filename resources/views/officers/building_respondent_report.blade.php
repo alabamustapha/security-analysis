@@ -10,7 +10,7 @@
           <div class="card">
             
             <div class="card-header d-flex align-items-center">
-              <h3 class="h4">Preview of {{ $building->name }} Report</h3>
+              <h3 class="h4">Preview of {{ $building->name }} Report for {{ $respondent->name}}</h3>
             </div>
             <div class="card-body">
               
@@ -19,7 +19,7 @@
                   <div class="col-md-12">
                     <div id="report-preview">
                       @foreach($building->reports as $report)
-                        {!! $report->body !!}
+                        {!! makeReport($report->body, $respondent->id) !!}
                       @endforeach  
                     </div>
                   </div>
