@@ -75,5 +75,7 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 	Route::get('buildings/{building}/report_preview', 'BuildingController@previewReport')->name('preview_building_report');
 	Route::get('buildings/{building}/report_download', 'BuildingController@downloadReport')->name('download_building_report');
 	Route::post('buildings/{building}/reports/{report}', 'ReportController@store')->name('create_building_report');
+
+	Route::delete('respondents/{respondent}', 'RespondentController@delete')->name('delete_respondent');
 });
 

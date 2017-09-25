@@ -61,4 +61,9 @@ class RespondentController extends Controller
 
         return $respondent;
     }
+
+    public function delete(Respondent $respondent){
+        $respondent->delete();
+        return back()->withMessage("Deleted");
+    }
 }

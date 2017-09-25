@@ -26,6 +26,12 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $respondent->name }}</td>
                             <td>
+                            <button class="btn btn-danger delete-respondent" id="form{{ $respondent->id }}">Delete</button>
+
+                            <form id="delete-respondent-form{{ $respondent->id }}" action="{{ route('delete_respondent', ['id' => $respondent->id]) }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            </form>
                             <a class="btn btn-primary" href="{{ route('respondent_building_responses', ['officer' => $officer->id, 'building' => $building->id, 'respondent' => $respondent->id]) }}">View responses</a>
                             <a class="btn btn-primary" href="{{ route('respondent_building_report', ['officer' => $officer->id, 'building' => $building->id, 'respondent' => $respondent->id]) }}">Preview report</a>
                             <a class="btn btn-success" href="{{ route('download_respondent_building_report', ['building' => $building->id, 'respondent' => $respondent->id]) }}">Download report</a>
@@ -51,14 +57,14 @@
 
       $(document).ready(function(){
 
-          $('button.delete-officer').click(function(event){
+          $('button.delete-respondent').click(function(event){
             
             event.preventDefault();
 
             var form = $(this).attr('id');
             swal({
               title: "Are you sure?",
-              text: "Officer records will be deleted",
+              text: "Respondent records will be deleted",
               type: "warning",
               showCancelButton: true,
               confirmButtonColor: "#DD6B55",
@@ -66,7 +72,7 @@
               closeOnConfirm: false
             },
             function(){
-              document.getElementById('delete-officer-' + form).submit();
+              document.getElementById('delete-respondent-' + form).submit();
             });
       
           });
