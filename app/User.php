@@ -40,10 +40,11 @@ class User extends Authenticatable
     public function inspectedBuildings(){
         $building_ids = $this->respondents->pluck('building_id')->toArray();
 
+        //dd(implode("','",$building_ids));
         $buildings = [];
         
         if($building_ids){
-            $buildings = Building::where('id', 'in', $building_ids)->get();
+            $buildings = Building::whereIn('id', $building_ids)->get();
         }
 
         return $buildings;
