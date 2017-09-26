@@ -51,15 +51,17 @@ function makeReport($report, $respondent_id){
 		
 		if($codes['responses']){
 			$report = str_replace($codes['short_code'], $codes['question'] . '<br>' . $codes['responses'], $report);	
+		}else{
+			$report = str_replace($codes['short_code'], "", $report);	
 		}
 		
 	}
 
 	$report = str_replace("[BUILDING_NAME]", $respondent->building->name, $report);
 	
-	if($respondent->officer->name){
-		$respondent_name = $respondent->officer->name;
-	}
+		if($respondent->officer){
+			$respondent_name = $respondent->officer->name;
+		}
 
 		$report = str_replace("[OFFICER_NAME]", $respondent_name, $report);
 	
