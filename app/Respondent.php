@@ -8,7 +8,7 @@ class Respondent extends Model
 {
 	protected $table = "respondents";
 	
-    protected $fillable = ['name', 'building_id'];
+    protected $fillable = ['name', 'building_id', 'user_id'];
 
     public function building(){
         return $this->belongsTo('App\Building');

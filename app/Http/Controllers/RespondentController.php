@@ -33,7 +33,7 @@ class RespondentController extends Controller
     	$respondent = Respondent::create([
     		'name' 			=> $request->name,
             'building_id'   => $request->building_id,
-    		'user_id' 	    => auth()->user()->id,
+    		'user_id' 	    => $request->user()->id,
     	]);
     	return $respondent;
     }
