@@ -30,7 +30,7 @@
                 <div class="statistics col-lg-3">
                   <div class="statistic d-flex align-items-center bg-white has-shadow">
                     <div class="icon bg-green"><i class="fa fa-reply-all"></i></div>
-                    <div class="text"><strong>0</strong><br><small>Responses</small></div>
+                    <div class="text"><strong>{{ $responses_count }}</strong><br><small>Responses</small></div>
                   </div>
                 </div>
 

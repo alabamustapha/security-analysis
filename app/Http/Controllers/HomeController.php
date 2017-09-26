@@ -10,6 +10,7 @@ use Softon\Indipay\Facades\Indipay;
 use App\User;
 use App\Question;
 use App\Building;
+use App\Response;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,8 @@ class HomeController extends Controller
         $officers_count     = User::whereRole('officer')->count();
         $buildings_count    = Building::all()->count();
         $questions_count    = Question::all()->count();
-        return view('home', compact('officers_count', 'questions_count', 'buildings_count'));
+        $responses_count    = Response::all()->count();
+        return view('home', compact('officers_count', 'questions_count', 'buildings_count', 'responses_count'));
     }
 
     public function install(Request $request){

@@ -57,7 +57,7 @@ function makeReport($report, $respondent_id){
 		
 	}
 
-	$report = str_replace("[BUILDING_NAME]", $respondent->building->name, $report);
+	$report = str_replace("[BUILDING_NAME]", $respondent->name, $report);
 	
 		if($respondent->officer){
 			$respondent_name = $respondent->officer->name;
