@@ -45,8 +45,8 @@
 
                             </td>
                             <td>
-                              <a href="{{ url('buildings/' . $building->name . '/' . $category->name . '/questions' ) }}" class="btn btn-primary"> Questions</a>
-                              <a href="{{ url('buildings/' . $building->name . '/' . $category->name . '/preview' ) }}" class="btn btn-primary"> Preview</a>
+                              <a href="{{ url('buildings/' . $building->id . '/categories/' . $category->id . '/questions' ) }}" class="btn btn-primary"> Questions</a>
+                              <a href="{{ url('buildings/' . $building->id . '/categories/' . $category->id . '/preview' ) }}" class="btn btn-primary"> Preview</a>
                             </td>
                           </tr>
                         @endforeach
