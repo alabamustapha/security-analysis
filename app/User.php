@@ -43,7 +43,7 @@ class User extends Authenticatable
         $buildings = [];
         
         if($building_ids){
-            $buildings = Building::whereId($this->respondents->pluck('building_id')->toArray())->get();    
+            $buildings = Building::where('id', 'in', $building_ids)->get();
         }
 
         return $buildings;
