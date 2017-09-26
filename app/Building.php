@@ -25,11 +25,14 @@ class Building extends Model
         return $this->hasMany('App\Report')->orderBy("page");
     }
 
-    public function questionsCodes($category_id = null){
+    public function shortCodes($category_id = null){
         $codes = $this->questions()->pluck('id')->toArray();
+        $default_codes = ["BUILDING_NAME", "OFFICER_NAME"];
         foreach ($codes as  $key => $code) {
             $codes[$key] = "QUEST_" . $code;
         }
+
+        $codes = array_merge($codes, $default_codes);
 
         return $codes;
     }

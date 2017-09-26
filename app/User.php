@@ -38,7 +38,16 @@ class User extends Authenticatable
     }
 
     public function inspectedBuildings(){
-        return Building::whereId($this->respondents->pluck('building_id')->toArray())->get();
+        $building_ids = $this->respondents->pluck('building_id')->toArray();
+
+        $buildings = [];
+        
+        if($building_ids){
+            $buildings = Building::whereId($this->respondents->pluck('building_id')->toArray())->get();    
+        }
+
+        return $buildings;
+        
     }
 
 }

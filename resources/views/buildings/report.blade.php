@@ -89,7 +89,7 @@
       height: 300,                 // set editor height
       focus: true,                 // set focus to editable area after initializing
       hint: {       
-        words: {!! json_encode($building->questionsCodes()) !!},
+        words: {!! json_encode($building->shortCodes()) !!},
         match: /\b(\w{1,})$/,
         search: function (keyword, callback) {
           callback($.grep(this.words, function (item) {

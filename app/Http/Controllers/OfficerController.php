@@ -40,6 +40,7 @@ class OfficerController extends Controller
     }
 
     public function inspectedBuildings(User $officer){
+        
         return view('officers.buildings', compact("officer"));
     }
 

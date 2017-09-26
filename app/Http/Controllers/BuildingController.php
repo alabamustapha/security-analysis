@@ -94,6 +94,7 @@ class BuildingController extends Controller
             ]);
         }
         
+        //dd($building->shortCodes());
 
         return view('buildings.report', compact('building', 'report'));
     }
@@ -107,12 +108,12 @@ class BuildingController extends Controller
 
         $content = "";
         foreach($building->reports as $report){ 
-            $content .= makeReport($report->body); 
+            $content .= $report->body; 
         }
 
         $pdf = PDF::loadHTML($content);
         return $pdf->download($building->name . ".pdf");
-        //return response()->file(asset("storage/reports/" . $building->name . ".pdf"));
+        
     }
 
     public function apiAll(Request $request){

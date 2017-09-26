@@ -1,6 +1,7 @@
 <?php
 
 use App\Question;
+use App\Respondent;
 
 
 function getShortCodes($report_body){
@@ -42,10 +43,20 @@ function combineResponses($responses){
 
 function makeReport($report, $respondent_id){
 
+	$respondent = Respondent::with('building', 'officer')->find($respondent_id);
+
 	$short_codes_replacement = shortCodesAndReplacement($report, $respondent_id);
 	foreach ($short_codes_replacement as $codes) {
-		$report = str_replace($codes['short_code'], $codes['question'] . '<br>' . $codes['responses'], $report);
+		
+		if($codes['responses']){
+			$report = str_replace($codes['short_code'], $codes['question'] . '<br>' . $codes['responses'], $report);	
+		}
+		
 	}
+
+	$report = str_replace("[BUILDING_NAME]", $respondent->building->name, $report);
+	
+	$report = str_replace("[OFFICER_NAME]", $respondent->officer->name, $report);
 
 	return $report;
 }
