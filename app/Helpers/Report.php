@@ -43,6 +43,7 @@ function combineResponses($responses){
 
 function makeReport($report, $respondent_id){
 
+	$respondent_name = "";
 	$respondent = Respondent::with('building', 'officer')->find($respondent_id);
 
 	$short_codes_replacement = shortCodesAndReplacement($report, $respondent_id);
@@ -56,8 +57,13 @@ function makeReport($report, $respondent_id){
 
 	$report = str_replace("[BUILDING_NAME]", $respondent->building->name, $report);
 	
-	$report = str_replace("[OFFICER_NAME]", $respondent->officer->name, $report);
+	if($respondent->officer->name){
+		$respondent_name = $respondent->officer->name;
+	}
 
+		$report = str_replace("[OFFICER_NAME]", $respondent_name, $report);
+	
+	
 	return $report;
 }
 
