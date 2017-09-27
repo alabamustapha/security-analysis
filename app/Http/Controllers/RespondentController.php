@@ -17,7 +17,7 @@ class RespondentController extends Controller
 
         $content = "";
         foreach($building->reports as $report){ 
-            $content .= makeReport($report->body, $respondent->id); 
+            $content .= makeReport("<h2>" . $report->title . "</h2><br>" . $report->body, $respondent->id, $respondent->id); 
         }
 
         $pdf = PDF::loadHTML($content);
@@ -47,7 +47,7 @@ class RespondentController extends Controller
 
         $content = "";
         foreach($building->reports as $report){ 
-            $content .= makeReport($report->body, $respondent->id); 
+            $content .= makeReport("<h2>" . $report->title . "</h2><br>" . $report->body, $respondent->id, $respondent->id); 
         }
 
         $pdf = PDF::loadHTML($content);

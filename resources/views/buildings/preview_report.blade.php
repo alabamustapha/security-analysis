@@ -19,7 +19,7 @@
                   <div class="col-md-12">
                     <div id="report-preview">
                       @foreach($building->reports as $report)
-                        {!! $report->body !!}
+                        {!! $report->title . "<br>" . $report->body !!}
                       @endforeach  
                     </div>
                   </div>
