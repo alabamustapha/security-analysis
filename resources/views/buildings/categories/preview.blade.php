@@ -13,10 +13,11 @@
                 </div>
 
                 <div class="card-body">
-                  <form>
                   @foreach($category_questions as $question)
                       <div class="form-group">
                           <label class="control-label">{{ $question->body . '(QUEST_' . $question->id . ')' }}</label>
+                          
+
                           @if($question->type == "text")
                            <textarea class="form-control"></textarea>
                           @elseif($question->type == "location")
@@ -46,8 +47,17 @@
                               @endforeach
                           @endif
                         </div>
+
+                        <a class="btn btn-primary" href="{{ route('edit_question', ['question' => $question->id]) }}">Edit</a>
+                        <button class="btn btn-danger delete-question" id="form{{ $question->id }}">Delete</button>
+                        
+
+                            <form id="delete-question-form{{ $question->id }}" action="{{ route('delete_question', ['question' => $question->id]) }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            </form>
                   @endforeach
-                  </form>
+                  
                 </div>
               </div>
             </div>
@@ -58,11 +68,32 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    
-  });
-</script>
+      $(document).ready(function(){
 
+          $('button.delete-question').click(function(event){
+            
+            event.preventDefault();
+
+            var form = $(this).attr('id');
+            swal({
+              title: "Are you sure?",
+              text: "Question(s) will be deleted",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              closeOnConfirm: false
+            },
+            function(){
+              document.getElementById('delete-question-' + form).submit();
+            });
+      
+          });
+          
+      });
+      
+      
+    </script>
 @endsection

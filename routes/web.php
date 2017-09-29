@@ -27,6 +27,12 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
 	Route::post('questions', 'QuestionController@store')->name('add_question');
 
+	Route::delete('questions/{question}', 'QuestionController@delete')->name('delete_question');
+
+	Route::get('questions/{question}/edit', 'QuestionController@edit')->name('edit_question');
+
+	Route::put('questions/{question}', 'QuestionController@update')->name('update_question');
+
 	Route::get('categories', 'CategoryController@index')->name('categories');
 	Route::post('categories', 'CategoryController@store')->name('add_categories');
 	Route::put('/categories/{id}', "CategoryController@update")->name('update_category');

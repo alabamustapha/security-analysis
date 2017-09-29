@@ -22,15 +22,7 @@ class QuestionController extends Controller
     		]);
     	}elseif($request->type == "checkbox" || $request->type == "radio" || $request->type == "dropdown"){
     		$options = "";
-    		//for custom label and option
-            // foreach ($request->all() as $key => $value) {
-    		//  	if(starts_with($key, 'value')){
-    		//  		$options .= $value . "|";
-    		//  	}elseif(starts_with($key, 'label')){
-    		//  		$options .= $value . "\n";
-    		//  	}
-    		//  }
-            
+    		
             foreach ($request->all() as $key => $value) {
 
                 if(trim($value) !== "" && starts_with($key, 'option')){
@@ -55,5 +47,48 @@ class QuestionController extends Controller
     	
 
     	return back()->with('message', " Question added successfully");
+    }
+
+    public function delete(Question $question){
+
+        $question->delete();
+        return back()->withMessage("Deleted");
+    }
+
+    public function edit(Question $question){
+        return view('questions.edit', compact('question'));
+    }
+
+    public function update(Request $request, Question $question){
+        
+        if($request->type == "location" || $request->type == "text" || $request->type == "rating"){
+            $question->update($request->except(["category_id", "building_id"]));
+        }elseif($request->type == "date") {
+            $question->body = $request->body;
+            $question->type = $request->type;
+            $question->options = [$request->from_date, $request->to_date];
+            $question->save();
+        }elseif($request->type == "checkbox" || $request->type == "radio" || $request->type == "dropdown"){
+            $options = "";
+            
+            foreach ($request->all() as $key => $value) {
+
+                if(trim($value) !== "" && starts_with($key, 'option')){
+                     $options .= $value . "\n";
+                }
+            
+             }
+
+             $options = explode(PHP_EOL, $options);
+             array_pop($options);
+
+                $question->body = $request->body;
+                $question->type = $request->type;
+                $question->options = $options;
+                $question->save();
+            
+        }
+
+        return back()->withMessage("Updated")->withQuestion($question);
     }
 }
