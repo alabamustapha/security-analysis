@@ -77,11 +77,11 @@
 
                                 <div class="row mt10" id="option-type-range">
                                     <div class="col-md-6">
-                                      <input type="date" name="min" class="form-control" placeholder="minimum value">
+                                      <input type="hidden" name="min" class="form-control" placeholder="minimum value" value="1">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <input type="date" name="max" class="form-control" placeholder="maximum value">
+                                        <input type="hidden" name="max" class="form-control" placeholder="maximum value" value="10">
                                     </div>
                                 </div>
 
@@ -135,7 +135,7 @@
           $('#option-type-multiple, #option-type-range', '#add-more').hide();
       }else if(type == "rating"){
           $('#options, #option-type-date, #option-type-multiple, #add-more').hide();
-          $('#options, #option-type-range').show();
+          $('#option-type-range').show();
           
       }else if(type == "checkbox" || type == "radio" || type=="dropdown"){
           $('#options, #option-type-date, #option-type-range').hide();

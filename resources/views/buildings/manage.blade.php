@@ -31,7 +31,7 @@
                       <tbody>
                         @foreach($categories as $category)
                           <tr>
-                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->name . '(CAT_' .$category->id . ')' }}</td>
                             <td>{{ $building->categoryQuestions($category->id)->count() }}</td>
                             <td>
 

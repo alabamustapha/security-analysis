@@ -11,6 +11,28 @@ function getShortCodes($report_body){
         return $results;
 }
 
+function getCatShortCodes($report_body, $respondent_id){
+	$cat_patern = "/\[CAT_(.+)\]/U";
+	$short_codes = [];
+	$cat_count = preg_match_all($cat_patern, $report_body, $short_codes);
+
+	$data = [];
+
+	$respondent =  Respondent::with('building')->find($respondent_id);
+	if($respondent){
+		foreach ($short_codes[1] as  $id) {
+			$code = [];
+			$code['short_code'] = "[CAT_" . $id . "]";
+			$code['score'] = $respondent->categoryValue(explode("_", $id)[0]);
+
+			$data[] = $code;
+		}	
+	}
+	return $data;
+}
+
+
+
 function shortCodesAndReplacement($report_body, $respondent_id){
 	
 	$short_codes = getShortCodes($report_body);
@@ -18,11 +40,15 @@ function shortCodesAndReplacement($report_body, $respondent_id){
         foreach ($short_codes[1] as  $id) {
         	$code = [];
             $question = Question::with('responses')->find($id);
-            $code['short_code'] = "[QUEST_" . $id . ']';
-            $code['question']   =  $question->body;
-            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id));
-            $data[] = $code;
+            if($question){
+            	$code['short_code'] = "[QUEST_" . $id . ']';
+	            $code['question']   =  $question->body;
+	            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id));
+	            $data[] = $code;
+            }
         }
+
+      
 
      return $data;   
 }
@@ -42,6 +68,8 @@ function combineResponses($responses){
 }
 
 function makeReport($report, $respondent_id){
+
+	$cat_short_codes = getCatShortCodes($report, $respondent_id);
 
 	$respondent_name = "";
 	$respondent = Respondent::with('building', 'officer')->find($respondent_id);
@@ -63,7 +91,11 @@ function makeReport($report, $respondent_id){
 			$respondent_name = $respondent->officer->name;
 		}
 
-		$report = str_replace("[OFFICER_NAME]", $respondent_name, $report);
+	$report = str_replace("[OFFICER_NAME]", $respondent_name, $report);
+
+	foreach ($cat_short_codes as $code) {
+		$report = str_replace($code["short_code"], $code["score"], $report);
+	}
 	
 	
 	return $report;

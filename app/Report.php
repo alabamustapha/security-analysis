@@ -10,8 +10,5 @@ class Report extends Model
 
     protected $fillable = ['building_id', 'body', 'page', 'title'];
 
-    public function getRouteKeyName()
-    {
-        return 'id';
-    }
+
 }
