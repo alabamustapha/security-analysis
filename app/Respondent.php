@@ -34,6 +34,7 @@ class Respondent extends Model
         $category_ids = $category->sub_categories()->pluck('id')->toArray();
         $category_ids[] = $category_id;
 
+
         $category_questions_id = $this->building->categoryQuestions($category_ids)->where('type', 'rating')->pluck('id')->toArray();
 
         return $this->responses->whereIn('question_id', $category_questions_id)->avg("value");

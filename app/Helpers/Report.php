@@ -43,7 +43,7 @@ function shortCodesAndReplacement($report_body, $respondent_id){
             if($question){
             	$code['short_code'] = "[QUEST_" . $id . ']';
 	            $code['question']   =  $question->body;
-	            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id));
+	            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id), $question->type);
 	            $data[] = $code;
             }
         }
@@ -53,14 +53,26 @@ function shortCodesAndReplacement($report_body, $respondent_id){
      return $data;   
 }
 
-function combineResponses($responses){
+function combineResponses($responses, $question_type){
 	$combined_responses = "";
 	foreach ($responses as $response) {
-		if(!is_null($response->body)){
-			$combined_responses .= $response->body . '<br>';	
-		}else{
-			$combined_responses .= $response->value . '<br>';	
-		}
+
+			$combined_responses .= "Answer: " . $response->body . '<br>';	
+		
+			if($question_type == "rating"){
+				$combined_responses .= "Value: " . $response->value . '<br>';
+			}
+			
+			$combined_responses .= "Suggestions: " . $response->suggestions . '<br>';
+
+			$combined_responses .= "Images: <br>";
+
+			foreach ($response->images as $image) {
+				$combined_responses .= "<img src=" . asset('storage/'.$image) . ' width="100%"><br>';
+			}
+
+
+		
 		
 	}
 

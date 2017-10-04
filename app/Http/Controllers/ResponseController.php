@@ -53,9 +53,9 @@ class ResponseController extends Controller
     					"body" 		 	=> $body,
     					"suggestions" 	=> $suggestion,
     					"value"		 	=> $value,
-    					"images"     	=> array_unique(array_merge($images, $response->images)),
-    					"videos"     	=> array_unique(array_merge($videos, $response->videos)),
-    					"audios"     	=> array_unique(array_merge($audios, $response->audios)),
+    					"images"     	=> array_unique(array_merge($images, $response->images ? $response->images : [])),
+    					"videos"     	=> array_unique(array_merge($videos, $response->videos ? $response->videos : [])),
+    					"audios"     	=> array_unique(array_merge($audios, $response->audios ? $response->audios : [])),
     					"question_id"	=> $question_id,
     					"respondent_id"	=> $respondent_id,
     					"building_id"	=> $request->building_id,
@@ -93,7 +93,7 @@ class ResponseController extends Controller
     		if($request->hasFile("images")){
     			return "has";
 				foreach($request->file("images") as $image) {
-					$images = array_prepend($images, $image->storeAs('images', $image->getClientOriginalName()));
+					$images = array_prepend($images, $image->storeAs('public/images', $image->getClientOriginalName()));
 				}
 
 				$response->images = 
