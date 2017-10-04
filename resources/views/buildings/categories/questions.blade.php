@@ -55,7 +55,7 @@
                                     <optgroup label="Others">
                                       <option value="checkbox">Check Box</option>
                                       <option value="rating">Rating</option>
-                                      <option value="dropdown">Drop down</option>
+                                      <!-- <option value="dropdown">Drop down</option> -->
                                       <option value="radio">Radio Button</option>
                                     </optgroup>
                                 </select>
