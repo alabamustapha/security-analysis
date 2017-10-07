@@ -11,3 +11,26 @@
 a.btn{
 	color: #fff;
 }
+
+span.rating{
+	display: inline-block;
+	color: #fff;
+	padding: 3px 8px;
+}
+
+
+.rating-danger{
+	background-color: #DC534B;
+}
+.rating-brown{
+	background-color: #EBB241;
+}
+.rating-yellow{
+	background-color: #FFFF00;
+}
+.rating-blue{
+	background-color: #0175D8;
+}
+.rating-green{
+	background-color: #5BB85D
+}

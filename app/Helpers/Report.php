@@ -42,7 +42,7 @@ function shortCodesAndReplacement($report_body, $respondent_id){
             $question = Question::with('responses')->find($id);
             if($question){
             	$code['short_code'] = "[QUEST_" . $id . ']';
-	            $code['question']   =  $question->body;
+	            $code['question']   =  "<strong>" . $question->body . "</strong><br>";
 	            $code['responses']  =  combineResponses($question->responses->where("respondent_id", $respondent_id), $question->type);
 	            $data[] = $code;
             }
@@ -57,15 +57,13 @@ function combineResponses($responses, $question_type){
 	$combined_responses = "";
 	foreach ($responses as $response) {
 
-			$combined_responses .= "Answer: " . $response->body . '<br>';	
+			$combined_responses .= "<strong>Findings: </strong><br>" . $response->body . '<br><br>';	
 		
 			if($question_type == "rating"){
-				$combined_responses .= "Value: " . $response->value . '<br>';
+				$combined_responses .= "<strong>Rating: <span class='rating " . ratingClass($response->value) . "'>" . $response->value . '</span></strong><br><br>';
 			}
 			
-			$combined_responses .= "Suggestions: " . $response->suggestions . '<br>';
-
-			$combined_responses .= "Images: <br>";
+			$combined_responses .= "<strong>Suggestions: </strong><br>" . $response->suggestions . '<br><br>';
 
 			foreach ($response->images as $image) {
 				$combined_responses .= "<img src=" . asset('storage/'. $image) . ' width="100%"><br>';
@@ -77,6 +75,31 @@ function combineResponses($responses, $question_type){
 	}
 
 	return $combined_responses;
+}
+
+function ratingClass($value){
+
+	$rating_class = ""; 
+
+	if($value >= 1 && $value <= 10){
+
+		if($value >= 8){
+			$rating_class = "rating-danger";
+		}elseif($value == 7){
+			$rating_class = "rating-brown";
+		}elseif ($value >= 5) {
+			$rating_class = "rating-yellow";
+		}elseif ($value == 4){
+			$rating_class = "rating-blue";
+		}else{
+			$rating_class = "rating-green";
+		}
+
+	}
+
+	return $rating_class;
+
+
 }
 
 function makeReport($report, $respondent_id){
