@@ -23,7 +23,7 @@ function getCatShortCodes($report_body, $respondent_id){
 		foreach ($short_codes[1] as  $id) {
 			$code = [];
 			$code['short_code'] = "[CAT_" . $id . "]";
-			$code['score'] = $respondent->categoryValue(explode("_", $id)[0]);
+			$code['score'] = $respondent->categoryScore(explode("_", $id)[0]);
 
 			$data[] = $code;
 		}	
