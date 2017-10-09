@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/respondents/{$id}', 'RespondentController@a
 
 Route::middleware('auth:api')->post('/responses', 'ResponseController@apiSaveReponses');
 
-Route::middleware('auth:api')->put('/responses/{id}/images', 'ResponseController@apiUpdateResponseImages');
+Route::middleware('auth:api')->put('/responses/{response}', 'ResponseController@apiUpdateResponse');
 
 Route::middleware('auth:api')->post('/responses/{id}/videos', 'ResponseController@apiUpdateResponseVideos');
 

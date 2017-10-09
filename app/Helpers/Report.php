@@ -55,22 +55,26 @@ function shortCodesAndReplacement($report_body, $respondent_id){
 
 function combineResponses($responses, $question_type){
 	$combined_responses = "";
-	foreach ($responses as $response) {
+	foreach ($responses as $response) {	
+			
+			if($question_type == "location"){
+				$combined_responses = "<img src='".get_location_image($response->body)."'>";
+			}else{
 
-			$combined_responses .= "<strong>Findings: </strong><br>" . $response->body . '<br><br>';	
-		
 			if($question_type == "rating"){
 				$combined_responses .= "<strong>Rating: <span class='rating " . ratingClass($response->value) . "'>" . $response->value . '</span></strong><br><br>';
 			}
+
+
+
+			$combined_responses .= "<strong>Findings: </strong><br>" . $response->body . '<br><br>';
 			
-			$combined_responses .= "<strong>Suggestions: </strong><br>" . $response->suggestions . '<br><br>';
+			$combined_responses .= "<strong>Recommendations: </strong><br>" . $response->suggestions . '<br><br>';
 
 			foreach ($response->images as $image) {
 				$combined_responses .= "<img src=" . asset('storage/'. $image) . ' width="100%"><br>';
 			}
-
-
-		
+		}
 		
 	}
 
@@ -121,6 +125,8 @@ function makeReport($report, $respondent_id){
 	}
 
 	$report = str_replace("[BUILDING_NAME]", $respondent->name, $report);
+
+	$report = str_replace("[SCORE]", $respondent->score(), $report);
 	
 		if($respondent->officer){
 			$respondent_name = $respondent->officer->name;
@@ -134,5 +140,14 @@ function makeReport($report, $respondent_id){
 	
 	
 	return $report;
+}
+
+function get_location_image($lat_long){
+	$url = "https://maps.googleapis.com/maps/api/staticmap?center=";
+	$url .= $lat_long;
+	$url .= "&zoom=16&size=640x400&path=weight:3%7Ccolor:blue%7Cenc:{coaHnetiVjM??_SkM??~R&key=";
+	$url .= env("GOOGLE_MAP_API");
+
+	return $url;
 }
 

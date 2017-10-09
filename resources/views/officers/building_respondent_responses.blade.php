@@ -22,6 +22,14 @@
                           <p>{{ $response->body }}</p>
                         @endif
 
+                        @if(!empty($response->audios))
+                            <a href="{{ route('response_audios', ['response' => $response->id]) }}" class="btn btn-primary">Download audios ({{count($response->audios)}})</a>
+                        @endif
+
+                        @if(!empty($response->videos))
+                            <a href="{{ route('response_videos', ['response' => $response->id]) }}" class="btn btn-primary">Download videos ({{ count($response->videos)}})</a>
+                        @endif
+
                     @endforeach  
                     
                     </div>

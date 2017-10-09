@@ -60,7 +60,13 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
     Route::get('/officers/{user}/buildings/{building}/respondents', "OfficerController@inspectedBuildingRespondents")->name('officer_building_respondents');
 
+ 
+    Route::get('/responses/{response}/audios', "ResponseController@downloadAudios")->name('response_audios');
+ 
+    Route::get('/responses/{response}/videos', "ResponseController@downloadVideos")->name('response_videos');
+
     Route::get('/officers/{user}/buildings/{building}/respondents/{respondent}/responses', "OfficerController@inspectedBuildingRespondentResponses")->name('respondent_building_responses');
+
 
     Route::get('/officers/{user}/buildings/{building}/respondents/{respondent}/report', "OfficerController@inspectedBuildingRespondentReport")->name('respondent_building_report');
 

@@ -63,6 +63,7 @@ class OfficerController extends Controller
 
     }
 
+
     public function update(Requests\UpdateOfficer $request, $id){
             $user = User::findOrFail($id);
             $user->password = bcrypt($request->password);

@@ -83,27 +83,55 @@ class ResponseController extends Controller
     		return $data;
     }
 
-    public function apiUpdateResponseImages(Request $request){
-    	return $request->all();
-    	$response = Response::find($id)->first();
-    	$images = [];
+    public function apiUpdateResponse(Request $request, Response $response){
+    	
+        return $response;
 
     	if($response){
 
     		if($request->hasFile("images")){
-    			return "has";
+
 				foreach($request->file("images") as $image) {
 					$images = array_prepend($images, $image->storeAs('public/images', $image->getClientOriginalName()));
 				}
 
-				$response->images = 
-					array_unique(array_merge($images, $response->images));
+				$response->images = array_unique(array_merge($images, $response->images));
 
 				$response->save();
+                
 			}
+
+            if($request->hasFile("audios")){
+
+                foreach($request->file("audios") as $audio) {
+                    $audios = array_prepend($audios, $audio->storeAs('public/audios', $audio->getClientOriginalName()));
+                }
+
+                $response->audios = array_unique(array_merge($audios, $response->audios));
+
+                $response->save();
+            }
+
+            if($request->hasFile("videos")){
+                foreach($request->file("videos") as $video) {
+                    $videos = array_prepend($videos, $video->storeAs('public/videos', $video->getClientOriginalName()));
+                }
+
+                $response->videos = array_unique(array_merge($videos, $response->videos));
+
+                $response->save();
+            }
 
     	}
 
     	return $response;
+    }
+
+    public function downloadAudios(Response $response){
+        return $response->audios;
+    }
+
+    public function downloadVideos(Response $response){
+            return $response->videos;
     }
 }

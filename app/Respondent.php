@@ -39,4 +39,11 @@ class Respondent extends Model
 
         return $this->responses->whereIn('question_id', $category_questions_id)->avg("value");
     }
+
+    public function score(){
+
+        $questions_ids = $this->building->questions()->where('type', 'rating')->pluck('id')->toArray();
+
+        return $this->responses->whereIn('question_id', $questions_ids)->avg("value");   
+    }
 }

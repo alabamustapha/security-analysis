@@ -32,7 +32,7 @@ class Building extends Model
         $question_codes = array_unique($this->questions()->pluck('id')->toArray());
 
         $category_codes = array_unique($this->questions()->pluck('category_id')->toArray());
-        $default_codes = ["BUILDING_NAME", "OFFICER_NAME"];
+        $default_codes = ["BUILDING_NAME", "OFFICER_NAME", "SCORE"];
         foreach ($question_codes as  $key => $code) {
             $question_codes[$key] = "QUEST_" . $code;
         }
