@@ -58,7 +58,9 @@ function combineResponses($responses, $question_type){
 	foreach ($responses as $response) {	
 			
 			if($question_type == "location"){
-				$combined_responses = "<img src='".get_location_image($response->body)."'>";
+				$combined_responses .= "<img src='".get_location_image($response->body)."'>";
+			}elseif($question_type == "date"){
+				$combined_responses .= $response->body;
 			}else{
 
 			if($question_type == "rating"){
