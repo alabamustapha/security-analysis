@@ -60,7 +60,7 @@ class Respondent extends Model
 
         $scores = [];
 
-        $categories = Category::all();
+        $categories = Category::where("category_id", null)->get();
 
         foreach ($categories as $category) {
             $scores[] = $this->categoryScore($category->id);    

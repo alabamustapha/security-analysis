@@ -23,4 +23,8 @@ class Category extends Model
     	return $this->belongsTo('App\Category', 'category_id', 'id');
     }
 
+    public function is_main_category(){
+        return $this->category_id === NULL;
+    }
+
 }
