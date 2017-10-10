@@ -79,7 +79,7 @@ class Respondent extends Model
     }
 
     public function categoryResponses($category_id){
-        return $this->buildingResponses()->where('category_id', $category_id);   
+        return $this->buildingResponses($this->building_id)->where('category_id', $category_id);   
     }
 
     public function hasResponsesForCategroy($category_id){
