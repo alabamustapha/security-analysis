@@ -25,7 +25,7 @@ class Respondent extends Model
     }
 
     public function buildingResponses($building_id){
-     return $this->responses->where('building_id', $building_id);   
+     return $this->responses->makeVisible("question_id")->where('building_id', $building_id);   
     }
 
     public function categoryScore($category_id){
@@ -33,17 +33,19 @@ class Respondent extends Model
         $category = Category::with('sub_categories')->find($category_id);
         
         if($category->sub_categories->count() > 0){
+            
             $scores = [];
             $category_ids = $category->sub_categories()->pluck('id')->toArray();
             
             foreach ($category_ids as $category_id) {
+                
                 if($this->hasResponsesForCategroy($category_id)){
                     $scores[] = $this->subcategoryScore($category_id);    
                 }
                 
             }
 
-            return !empty($scores) ? round(array_sum($scores) / count($scores)) : null;
+            return count(($scores)) > 0 ? round(array_sum($scores) / count($scores)) : null;
                         
         }
         
@@ -58,7 +60,7 @@ class Respondent extends Model
 
         $scores = [];
 
-        $categories = Category::with("sub_categories")->get();
+        $categories = Category::all();
 
         foreach ($categories as $category) {
             $scores[] = $this->categoryScore($category->id);    
@@ -79,11 +81,12 @@ class Respondent extends Model
     }
 
     public function categoryResponses($category_id){
-        return $this->buildingResponses($this->building_id)->where('category_id', $category_id);   
+        $category_questions_id = $this->building->questions->makeVisible("category_id")->where('category_id', $category_id)->pluck("id")->toArray();
+        return $this->buildingResponses($this->building_id)->whereIn("question_id", $category_questions_id);   
     }
 
     public function hasResponsesForCategroy($category_id){
-
+        
         return $this->categoryResponses($category_id)->count() > 0;
     }
 
