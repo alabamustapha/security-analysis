@@ -35,9 +35,9 @@ Route::group(['middleware' => ['company', 'auth']], function () {
 
 	Route::get('categories', 'CategoryController@index')->name('categories');
 	Route::post('categories', 'CategoryController@store')->name('add_categories');
-	Route::put('/categories/{id}', "CategoryController@update")->name('update_category');
-	Route::get('/categories/{id}/edit', "CategoryController@edit")->name('edit_category');
-	Route::delete('/categories/{id}/delete', "CategoryController@delete")->name('delete_category');
+	Route::put('/categories/{category}', "CategoryController@update")->name('update_category');
+	Route::get('/categories/{category}/edit', "CategoryController@edit")->name('edit_category');
+	Route::delete('/categories/{category}/delete', "CategoryController@delete")->name('delete_category');
 	Route::get('categories/create', 'CategoryController@create')->name('create_categories');
 	Route::get('buildings', 'BuildingController@index')->name('buildings');
 	Route::get('buildings/create', 'BuildingController@create')->name('create_buildings');

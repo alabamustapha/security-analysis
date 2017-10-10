@@ -32,11 +32,11 @@
                             <td>{{ $category->main_category->name or '' }}</td>
                             <td><button class="btn btn-danger delete-category" id="form{{ $category->id }}">Delete</button>
 
-                            <form id="delete-category-form{{ $category->id }}" action="{{ route('delete_category', ['category' => $category->name]) }}" method="POST" style="display: none;">
+                            <form id="delete-category-form{{ $category->id }}" action="{{ route('delete_category', ['category' => $category->id]) }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             </form>
-                            <a class="btn btn-primary" href="{{ route('edit_category', $category->name) }}">Edit</a></td>
+                            <a class="btn btn-primary" href="{{ route('edit_category', $category->id) }}">Edit</a></td>
                           </tr>
                           @endforeach
                         </tbody>

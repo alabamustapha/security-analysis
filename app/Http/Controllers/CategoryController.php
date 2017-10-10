@@ -24,8 +24,9 @@ class CategoryController extends Controller
     }
 
     public function delete(Request $request, Category $category){
+        
         $category->delete();
-
+        
         return back()->withMessage("Category deleted");
     }
 
