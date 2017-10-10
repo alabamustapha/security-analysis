@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/respondents/{$id}', 'RespondentController@a
 
 Route::middleware('auth:api')->post('/responses', 'ResponseController@apiSaveReponses');
 
-Route::middleware('auth:api')->put('/responses/{response}', 'ResponseController@apiUpdateResponse');
+Route::middleware('auth:api')->post('/responses/{response}', 'ResponseController@apiUpdateResponse');
 
 Route::middleware('auth:api')->post('/responses/{id}/videos', 'ResponseController@apiUpdateResponseVideos');
 
@@ -40,6 +40,6 @@ Route::middleware('auth:api')->get('/buildings/{building}/respondents/{responden
 
 Route::middleware('auth:api')->get('/buildings/{building}/respondents/{respondent}/completed', "RespondentController@completedStatus");
 
-Route::middleware('auth:api')->put('/buildings/{building}/respondents/{respondent}/completed', "RespondentController@completed");
+Route::middleware('auth:api')->post('/buildings/{building}/respondents/{respondent}/completed', "RespondentController@completed");
 
 Route::middleware('auth:api')->get('buildings/{building}/report_download', 'BuildingController@downloadReport')->name('download_building_report');
