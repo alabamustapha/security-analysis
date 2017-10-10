@@ -37,13 +37,13 @@ class Respondent extends Model
             $category_ids = $category->sub_categories()->pluck('id')->toArray();
             
             foreach ($category_ids as $category_id) {
-                if($this->hasQuestionsInCategory($category_id)){
+                if($this->hasResponsesForCategroy($category_id)){
                     $scores[] = $this->subcategoryScore($category_id);    
                 }
                 
             }
 
-            return !empty($scores) ? round(array_sum($scores) / count($scores)) : "null";
+            return !empty($scores) ? round(array_sum($scores) / count($scores)) : null;
                         
         }
         
@@ -76,6 +76,15 @@ class Respondent extends Model
 
     public function hasQuestionsInCategory($category_id){
             return $this->building->categoryQuestions($category_id)->count() > 0;
+    }
+
+    public function categoryResponses($category_id){
+        return $this->buildinResponses()->where('category_id', $category_id);   
+    }
+
+    public function hasResponsesForCategroy($category_id){
+
+        return $this->categoryResponses($category_id)->count() > 0;
     }
 
 
