@@ -85,17 +85,22 @@ class ResponseController extends Controller
 
     public function apiUpdateResponse(Request $request, Response $response){
     	
-        return $response;
 
     	if($response){
 
     		if($request->hasFile("images")){
 
+                $images = [];
+
 				foreach($request->file("images") as $image) {
 					$images = array_prepend($images, $image->storeAs('public/images', $image->getClientOriginalName()));
 				}
 
-				$response->images = array_unique(array_merge($images, $response->images));
+                if(is_array($response->images)){
+                    $response->images = array_unique(array_merge($images, $response->images));    
+                }else{
+                    $response->images = array_unique($images);
+                }
 
 				$response->save();
                 
@@ -103,21 +108,37 @@ class ResponseController extends Controller
 
             if($request->hasFile("audios")){
 
+                $audios = [];
+
                 foreach($request->file("audios") as $audio) {
                     $audios = array_prepend($audios, $audio->storeAs('public/audios', $audio->getClientOriginalName()));
                 }
 
-                $response->audios = array_unique(array_merge($audios, $response->audios));
+                if(is_array($response->audios)){
+                    $response->audios = array_unique(array_merge($audios, $response->audios));
+                }else{
+                    $response->audios = array_unique($audios);
+                }
 
                 $response->save();
             }
 
             if($request->hasFile("videos")){
+
+                $videos = [];
+
                 foreach($request->file("videos") as $video) {
                     $videos = array_prepend($videos, $video->storeAs('public/videos', $video->getClientOriginalName()));
                 }
 
-                $response->videos = array_unique(array_merge($videos, $response->videos));
+                if(is_array($response->videos)){
+                    $response->videos = array_unique(array_merge($videos, $response->videos));    
+                }else{
+                    $response->videos = array_unique($videos);    
+                }
+
+
+                
 
                 $response->save();
             }
