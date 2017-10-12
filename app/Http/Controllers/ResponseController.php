@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Building;
 use App\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ResponseController extends Controller
 {
@@ -149,10 +150,42 @@ class ResponseController extends Controller
     }
 
     public function downloadAudios(Response $response){
-        return $response->audios;
+        
+    $zipper = new \Chumper\Zipper\Zipper;
+    
+    $file_urls = [];
+    
+    $zip_name = public_path() . '/downloads/audios' . '.zip';
+    
+
+    foreach ($response->audios as  $audio) {
+
+       $file_urls[] = storage_path('app/'.$audio);
+
+    }
+
+    $zipper->make($zip_name)->add($file_urls);
+
+    $zipper->close();
+
+    return response()->download($zip_name);
+
     }
 
     public function downloadVideos(Response $response){
-            return $response->videos;
+        $zipper = new \Chumper\Zipper\Zipper;
+    
+        $file_urls = [];
+        
+        $zip_name = public_path() . '/downloads/videos' . '.zip';
+        
+        foreach ($response->videos as  $video) {
+           $file_urls[] = storage_path('app/'.$video);
+        }
+        $zipper->make($zip_name)->add($file_urls);
+
+        $zipper->close();
+
+        return response()->download($zip_name);
     }
 }
