@@ -6,6 +6,7 @@ use App\Building;
 use App\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Zipper;
 
 class ResponseController extends Controller
 {
@@ -150,8 +151,6 @@ class ResponseController extends Controller
     }
 
     public function downloadAudios(Response $response){
-        
-    $zipper = new \Chumper\Zipper\Zipper;
     
     $file_urls = [];
     
@@ -164,7 +163,7 @@ class ResponseController extends Controller
 
     }
 
-    $zipper->make($zip_name)->add($file_urls);
+    $zipper = Zipper::make($zip_name)->add($file_urls);
 
     $zipper->close();
 
@@ -173,7 +172,7 @@ class ResponseController extends Controller
     }
 
     public function downloadVideos(Response $response){
-        $zipper = new \Chumper\Zipper\Zipper;
+        
     
         $file_urls = [];
         
@@ -182,7 +181,8 @@ class ResponseController extends Controller
         foreach ($response->videos as  $video) {
            $file_urls[] = storage_path('app/'.$video);
         }
-        $zipper->make($zip_name)->add($file_urls);
+
+        $zipper = Zipper::make($zip_name)->add($file_urls);
 
         $zipper->close();
 
