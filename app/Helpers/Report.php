@@ -74,7 +74,7 @@ function combineResponses($responses, $question_type){
 			$combined_responses .= "<strong>Recommendations: </strong><br>" . $response->suggestions . '<br><br>';
 
 			foreach ($response->images as $image) {
-				$combined_responses .= "<img src=" . Storage::url($image) . ' width="300px">';
+				$combined_responses .= "<img src=" . asset(Storage::url($image)) . ' width="300px">';
 			}
 
 			$combined_responses .= "<br>";
