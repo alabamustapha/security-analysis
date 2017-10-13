@@ -156,6 +156,11 @@ class ResponseController extends Controller
     
     $zip_name = public_path() . '/downloads/audios' . '.zip';
     
+    
+    if(file_exists($zip_name)){
+        unlink($zip_name);    
+    }
+    
 
     foreach ($response->audios as  $audio) {
 
@@ -167,16 +172,21 @@ class ResponseController extends Controller
 
     $zipper->close();
 
+    
+
     return response()->download($zip_name);
 
     }
 
     public function downloadVideos(Response $response){
         
-    
         $file_urls = [];
         
         $zip_name = public_path() . '/downloads/videos' . '.zip';
+        
+        if(file_exists($zip_name)){
+            unlink($zip_name);    
+        }
         
         foreach ($response->videos as  $video) {
            $file_urls[] = storage_path('app/'.$video);
