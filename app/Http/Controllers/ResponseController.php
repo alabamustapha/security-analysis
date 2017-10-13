@@ -152,6 +152,8 @@ class ResponseController extends Controller
 
     public function downloadAudios(Response $response){
     
+    dd(get_loaded_extensions());
+    
     $file_urls = [];
     
     $zip_name = public_path() . '/downloads/audios' . '.zip';
