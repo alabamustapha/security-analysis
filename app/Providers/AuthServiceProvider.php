@@ -28,6 +28,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
          Passport::routes(); 
+         \Route::post('oauth/token', [
+    'middleware' => 'password-grant',
+    'uses' => '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken'
+]);
+\Route::post('oauth/token/refresh', [
+    'middleware' => ['web', 'auth', 'password-grant'],
+    'uses' => '\Laravel\Passport\Http\Controllers\TransientTokenController@refresh'
+]);
 	Passport::tokensExpireIn(Carbon::now()->addDays(7));
 	Passport::refreshTokensExpireIn(Carbon::now()->addDays(14));
 

@@ -129,8 +129,10 @@ class ResponseController extends Controller
 
                 $videos = [];
 
+                //Storage::putFileAs('photos', new File('/path/to/photo'), 'photo.jpg');
+
                 foreach($request->file("videos") as $video) {
-                    $videos = array_prepend($videos, $video->storeAs('public/videos', $video->getClientOriginalName()));
+                    $videos = array_prepend($videos, \Storage::putFileAs('public/videos', $video, $video->getClientOriginalName()));
                 }
 
                 if(is_array($response->videos)){

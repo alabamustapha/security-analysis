@@ -35,7 +35,7 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\VerifyCsrfMiddleware::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-             //\Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
 
         'company' => [
@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'admin_exist' => \App\Http\Middleware\CheckAdmin::class,
         'admin_created' => \App\Http\Middleware\VerifyAdminCreated::class,
         'setup' => \App\Http\Middleware\VerifySetup::class,
+        'password-grant' => \App\Http\Middleware\InjectPasswordGrantCredentials::class,
         
     ];
 }
