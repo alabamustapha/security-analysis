@@ -17,7 +17,7 @@
                        <div class="row">
 
                           <div class="col-md-12">
-                                <form action="{{ route('update_category', $category->name) }}" method="post">
+                                <form action="{{ route('update_category', $category->id) }}" method="post">
                                 
                                 {{ csrf_field() }}
                                 {{ method_field('PUT')}}

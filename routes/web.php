@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::group(["middleware" => ["setup"]], function(){
 	Route::get('/setup', 'HomeController@setup')->name('setup');
 	Route::post('/setup', 'HomeController@install')->name('process_setup');

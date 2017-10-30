@@ -36,6 +36,7 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, Category $category){
+        
         $category->update($request->all());
 
         return back()->withMessage("Record updated");

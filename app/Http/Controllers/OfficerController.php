@@ -64,8 +64,8 @@ class OfficerController extends Controller
     }
 
 
-    public function update(Requests\UpdateOfficer $request, $id){
-            $user = User::findOrFail($id);
+    public function update(Requests\UpdateOfficer $request, User $user){
+            
             $user->password = bcrypt($request->password);
             $user->save();
             return back()->with("message", "Record updated");
