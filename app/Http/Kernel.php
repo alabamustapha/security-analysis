@@ -34,12 +34,10 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\VerifyCsrfMiddleware::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            //\Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,            
         ],
 
         'company' => [
-            //\App\Http\Middleware\LicenseInstalled::class,
             \App\Http\Middleware\VerifyLicense::class,
         ],
 

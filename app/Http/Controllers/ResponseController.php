@@ -170,13 +170,11 @@ class ResponseController extends Controller
 
     }
 
-    return response()->download($file_urls[0]); //minor fix
+    // return response()->download($file_urls[0]); //minor fix
 
     $zipper = Zipper::make($zip_name)->add($file_urls);
 
     $zipper->close();
-
-    
 
     return response()->download($zip_name);
 
@@ -196,7 +194,7 @@ class ResponseController extends Controller
            $file_urls[] = storage_path('app/'.$video);
         }
 
-        return response()->download($file_urls[0]); //minor fix
+        // return response()->download($file_urls[0]); //minor fix
 
         $zipper = Zipper::make($zip_name)->add($file_urls);
 

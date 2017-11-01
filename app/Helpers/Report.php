@@ -154,4 +154,3 @@ function get_location_image($lat_long){
 
 	return $url;
 }
-
